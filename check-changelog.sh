@@ -61,14 +61,36 @@ if [[ -n "$version_file" ]]; then
   [[ -n "$version" ]] || die "$version_file is empty"
 fi
 
+# Strictly-less-than on x.y.z, field by field. Not `sort -V`, which is a GNU extension the
+# BSD sort on macOS may not have — the same reason there is no `mapfile` here. A
+# prerelease suffix is ignored for ordering; it is not what this check is about.
+version_lt() { # version_lt A B -> 0 when A < B
+  local -a ia ib
+  local i x y
+  IFS=. read -r -a ia <<<"${1%%[-+]*}"
+  IFS=. read -r -a ib <<<"${2%%[-+]*}"
+  for i in 0 1 2; do
+    x=${ia[$i]:-0}
+    y=${ib[$i]:-0}
+    ((10#$x < 10#$y)) && return 0
+    ((10#$x > 10#$y)) && return 1
+  done
+  return 1
+}
+
 findings=0
 report() { # report LINE MESSAGE
   printf '%s:%s: %s\n' "$changelog" "$1" "$2"
   findings=$((findings + 1))
 }
 
-# Headings, with their line numbers, in the order the file states them
-mapfile -t headings < <(grep -n '^## ' "$changelog")
+# Headings, with their line numbers, in the order the file states them. A read loop rather
+# than `mapfile`, which is bash 4.0+ — this checker is meant to be dropped into other
+# repositories' gates, and macOS ships bash 3.2.
+headings=()
+while IFS= read -r heading_line; do
+  headings+=("$heading_line")
+done < <(grep -n '^## ' "$changelog")
 # An extractor that finds nothing must say so rather than read as "all clear": a file with
 # no headings at all is not a clean changelog, it is an unparsed one
 ((${#headings[@]} > 0)) || {
@@ -107,8 +129,7 @@ for entry in "${headings[@]}"; do
         report "$line" "a numbered heading above a dated one — dated entries belong on top, where a repository that stopped shipping versions keeps its newer work"
       fi
       if [[ -n "$prev_version" ]]; then
-        newest=$(printf '%s\n%s\n' "$prev_version" "$v" | sort -rV | head -1)
-        [[ "$newest" == "$prev_version" && "$prev_version" != "$v" ]] ||
+        version_lt "$v" "$prev_version" ||
           report "$line" "[$v] is not older than the [$prev_version] above it — newest first"
       fi
       prev_version="$v"

@@ -37,6 +37,18 @@ for s in "${scripts[@]}"; do bash -n "$s"; done
 shellcheck "${scripts[@]}"
 shfmt -d -i 2 -ci "${scripts[@]}"
 
+echo "== nothing here needs a bash newer than the one macOS ships"
+# macOS ships bash 3.2, and this checker is meant to be dropped into other repositories'
+# gates — including theirs. Two of these were found the expensive way, by a CI run on a
+# machine none of this was written on: `[[ -v VAR ]]` is 4.2+, `mapfile` is 4.0+.
+# `sort -V` is a separate trap: not a bash version but a GNU one, absent from BSD sort.
+# Every literal below is split by a bracket expression so the pattern cannot match its own
+# source line — the same trick the ci skill's secret gate uses, and for the same reason: a
+# guard that reddens the commit introducing it gets deleted rather than fixed.
+bash4_pattern='\[\[[^]]*[-]v [A-Za-z_]|mapfil[e] |readarra[y] |declar[e] -A|loca[l] -A|\$\{[A-Za-z_]+,[,]\}|\$\{[A-Za-z_]+\^[\^]\}|sor[t] -[A-Za-z]*V'
+bash4=$(grep -nE "$bash4_pattern" "${scripts[@]}" | grep -vE ':[[:space:]]*#' || :)
+[[ -z "$bash4" ]] || fail "a construct newer than bash 3.2 (or GNU-only) in a script meant to travel:"$'\n'"$bash4"
+
 echo "== the workflows are valid, and their tools come from the lock rather than a registry"
 [[ -d .github/workflows ]] || fail ".github/workflows is missing — nothing gates this repository"
 actionlint
@@ -108,6 +120,10 @@ echo "== the checker accepts a changelog that is correct, in both shapes"
   fail "a correct dated changelog was rejected — the checker would cry wolf"
 ./check-changelog.sh -v tests/fixtures/VERSION-1.2.0 tests/fixtures/good-numbered.md ||
   fail "a correct numbered changelog was rejected — the checker would cry wolf"
+# The case a string comparison gets backwards, which is why the ordering is done field by
+# field rather than by sorting text
+./check-changelog.sh -n tests/fixtures/good-double-digit.md ||
+  fail "1.10.0 above 1.9.0 was called out of order — the version comparison is textual"
 
 echo "== and rejects each thing it claims to catch, naming that thing"
 # One fixture per rule, and the message must be the rule's own: a checker whose findings
@@ -123,11 +139,29 @@ rejects() { # rejects FIXTURE EXPECTED-FRAGMENT [-v FILE | -n]
 rejects unreleased-without-version.md "an Unreleased section in a repository with no version" -n
 rejects dates-out-of-order.md "is not older than the" -n
 rejects versions-out-of-order.md "is not older than the" -n
+rejects versions-double-digit.md "[1.10.0] is not older than the [1.9.0]" -n
 rejects numbered-above-dated.md "a numbered heading above a dated one" -n
 rejects nonsense-heading.md "is neither a version, a date, nor Unreleased" -n
 rejects no-headings.md "no '## ' headings at all" -n
 rejects dated-with-a-version.md "a dated heading in a repository that ships version" -v tests/fixtures/VERSION-1.2.0
 rejects good-numbered.md "but no '## [9.9.9]' heading records what is in it" -v tests/fixtures/VERSION-9.9.9
+
+echo "== the bash-3.2 guard catches each construct, and never its own source"
+# Both halves. A guard that matched its own file would redden the commit that introduces
+# it, and would then be deleted rather than fixed; a guard that matches nothing is worse,
+# because it looks like protection.
+# The constructs live in a fixture rather than inline here, because spelling them in this
+# file would make the guard match its own proof — which is how the first version of this
+# reddened the repository on the commit that added it
+planted_count=0
+while IFS= read -r planted; do
+  [[ -z "$planted" || "$planted" == \#* ]] && continue
+  planted_count=$((planted_count + 1))
+  printf '%s\n' "$planted" >"$work/planted.sh"
+  grep -qE "$bash4_pattern" "$work/planted.sh" ||
+    fail "the bash-3.2 guard does not catch: $planted"
+done <tests/fixtures/bash4-constructs.sh
+((planted_count >= 8)) || fail "only $planted_count constructs were read from the fixture — the extractor is broken"
 
 echo "== the checker refuses rather than guessing when it is pointed at nothing"
 status=0

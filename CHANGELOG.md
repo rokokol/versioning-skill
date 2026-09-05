@@ -10,3 +10,8 @@ Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), d
 - `check-changelog.sh`, which takes **any** changelog and decides the machine-checkable half: heading shapes, newest-first ordering in both kinds, an `Unreleased` section where there is no version to release, a dated heading in a repository that ships one, and whether the current `VERSION` has a section at all
 - the rule that an entry earns its place by being observable from outside, and that the entry says *what* changed while the commit body says *why* — followed for a day across six repositories before it had anywhere to be written down
 - the rule that history is not edited: a change later reverted keeps both entries, because the person who installed the version in between is the reason the record has to be honest
+
+### Fixed
+
+- `check-changelog.sh` used `mapfile` (bash 4.0+) and `sort -V` (a GNU extension), so it would have broken in the first repository that ran it on macOS — which is every repository, since the point of this checker is that it travels. Both are gone: a read loop, and a field-by-field version comparison that also gets `1.10.0` above `1.9.0` right, which sorting text does not
+- a guard now greps every shipped script for constructs a bash 3.2 or a BSD userland lacks, and both its halves are proven — every construct in the fixture is caught, and the pattern cannot match its own source. The first version failed the second half and reddened the commit that added it
