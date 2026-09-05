@@ -2,8 +2,96 @@
 
 # versioning skill
 
-**What a repository says about itself over time**
+**What a repository says about itself over time ⌛**
+
+![Claude Code](https://img.shields.io/badge/Claude_Code-D97757?style=flat&logo=anthropic&logoColor=white)
+![Bash](https://img.shields.io/badge/Bash-4EAA25?style=flat&logo=gnubash&logoColor=white)
+![Nix](https://img.shields.io/badge/Nix-flake-7EBAE4?style=flat&logo=nixos&logoColor=white)
+[![license](https://img.shields.io/badge/MIT-3DA639?style=flat)](LICENSE)
+[![ci](https://github.com/rokokol/versioning-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/rokokol/versioning-skill/actions/workflows/ci.yml)
 
 </div>
 
-Work in progress
+A version is a promise: someone installed exactly this one, and can report a bug against it. A changelog is the other half — it tells that person what changed between the thing they have and the thing being offered
+
+Both go wrong the same way, by claiming more than the repository can back: a version badge on something with no releases, an `Unreleased` section that never closes, an entry describing a refactor nobody outside could observe, a heading nobody can match to anything they installed. This skill is the set of rules that keep the claim true, plus a checker that decides the half a script can decide
+
+## Contents
+
+- [Install](#install)
+- [The first question](#the-first-question)
+- [The rules](#the-rules)
+- [The checker](#the-checker)
+- [Tests](#tests)
+- [Layout](#layout)
+
+## Install
+
+```sh
+git clone https://github.com/rokokol/versioning-skill ~/Projects/versioning
+ln -s ~/Projects/versioning ~/.claude/skills/versioning
+```
+
+Or straight into the skills directory your agent reads:
+
+```sh
+git clone https://github.com/rokokol/versioning-skill ~/.claude/skills/versioning
+```
+
+> [!NOTE]
+> This repository is one of the kind it describes: it has no version, so `git pull` is the whole upgrade path and its own changelog is dated rather than numbered
+
+## The first question
+
+**Can someone install a particular version of this and report a bug against it?**
+
+Everything else follows. If yes, it is a shipped artifact: a `VERSION` file, numbered changelog headings, tags, a release ritual. If no — a skill, a prompt library, a docs-only repo, a dotfiles tree — it has no version to be wrong about, so it carries no `VERSION` file, no version badge and no tag-pinned install line, and its changelog is dated
+
+Getting this wrong is not cosmetic. A version nobody can install is a number that cannot be checked against anything, and it disagrees with reality the first time somebody tries
+
+## The rules
+
+| | |
+|---|---|
+| **[One place holds the version](references/versioning.md)** | A `VERSION` file at the root; the metadata reads it, the tools print it, CI cross-checks it against the changelog. Two hand-kept copies disagree within a month, and the disagreement reaches a user as an unactionable bug report |
+| **[The changelog's shape follows from the first question](references/changelog.md)** | Versioned: `## [x.y.z]` headings, with `## Unreleased` for work awaiting a release. Versionless: `## YYYY-MM-DD` headings and **no `Unreleased`** — it holds work that has landed but not shipped, a state such a repository can never be in, so the section never closes |
+| **[An entry earns its place by being observable from outside](references/changelog.md)** | Behaviour, an interface, a default, a dependency, a removal. Not a refactor, not an internal rename, not "improved the code". If you cannot say who would notice, there is nothing to write |
+| **[The entry says what; the commit says why](references/changelog.md)** | The changelog reader is deciding whether to upgrade and has thirty seconds. The reasoning belongs in the commit body, where whoever is chasing that decision will look |
+| **[History is not edited](references/changelog.md)** | A change later reverted keeps both entries. The person who installed the version in between is the reason the record has to be honest |
+| **[Newest first, one kind of heading](references/changelog.md)** | Dates descending, versions descending. A repository that stopped shipping versions keeps its dated entries above its numbered history — the one mixture that means anything |
+| **[Releasing is a ritual, and it is checkable](references/release.md)** | The bump and the changelog section move in one commit, so neither can be forgotten; the tag follows; the release notes are that section rather than a re-written summary that drifts from it |
+| **[Never move a tag](references/release.md)** | Somebody has already fetched it. Cut the next patch and say what happened, because a moved tag makes their checkout silently differ from yours |
+
+## The checker
+
+[`check-changelog.sh`](check-changelog.sh) takes **any** changelog, which is what makes it worth more than a review comment — drop it into a repository's own gate and the rules stop depending on somebody remembering them:
+
+```sh
+check-changelog.sh                    # finds VERSION beside CHANGELOG.md by itself
+check-changelog.sh -n                 # assert this repository has no version
+check-changelog.sh -v path/to/VERSION path/to/CHANGELOG.md
+```
+
+It decides the mechanical half: heading shapes, newest-first ordering in both kinds, an `Unreleased` section where there is nothing to release, a dated heading in a repository that ships a version, a numbered heading above a dated one, and whether the current `VERSION` has a section at all. What it cannot decide is whether an entry deserved to exist, which is the half that needs a person
+
+## Tests
+
+```sh
+nix develop -c ./check.sh
+```
+
+Lints what the skill ships, holds `SKILL.md` to the frontmatter an agent loads it by, resolves every reference link and heading anchor, and runs the checker against this repository's own changelog first — the first repository it has to be right about
+
+Then it proves the checker can fail, one fixture per rule, each of which must be rejected **with that rule's own message**: a checker whose findings all come from one over-broad branch reads as thorough while testing one thing. The two correct fixtures, dated and numbered, must come back clean, because a checker that cries wolf gets switched off
+
+## Layout
+
+```
+SKILL.md              the rules an agent reads
+check-changelog.sh    the checker, which takes any changelog
+references/           versioning (the VERSION file), changelog (the culture), release (the ritual)
+check.sh              the self-testing gate
+tests/fixtures/       one known-bad changelog per rule, plus the good ones
+```
+
+What gates a pull request, how a workflow is pinned and how badges are earned belongs to the [ci](https://github.com/rokokol/ci-skill) skill; the Nix family's own concretes to [huix-standard](https://github.com/rokokol/huix-standard-skill); what may go in a commit *message* to [ai-commit-trailers](https://github.com/rokokol/ai-commit-trailers-skill)
