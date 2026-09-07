@@ -7,6 +7,7 @@ Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), d
 ### Added
 
 - `check-skill.sh`, the gate every skill repository shares, copied verbatim from the [ci](https://github.com/rokokol/ci-skill) skill: `SKILL.md` loads (frontmatter closed, name valid and agreeing with the symlink, description within what an agent reads), every reference is reached from `SKILL.md` by a chain of real links, every link and anchor resolves — and each of those is proven able to fail on a planted defect every time the gate runs. It replaces this repository's own frontmatter and link sections, which checked less and never proved themselves
+- `check-pins.sh`, the pin guard for the workflows, copied verbatim from the [ci](https://github.com/rokokol/ci-skill) skill in place of the inline grep `check.sh` carried: it covers every unpinned shape the ci skill names rather than the four the grep knew, proves on every run that it catches each one and stays quiet on the pinned spellings, and refuses to read as green when there is nothing to scan
 - fixtures for every branch of `check-changelog.sh` that had none: a `## [v1.2]` heading is rejected as not a version, a prerelease suffix in both `VERSION` and its heading is accepted alongside the bracketed `## [Unreleased]` spelling, the `VERSION` beside a changelog is found with no flag at all, and an unreadable or empty version file is refused with exit 2 rather than reported as a finding
 
 ## 2026-09-05
