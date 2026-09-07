@@ -80,7 +80,7 @@ It decides the mechanical half: heading shapes, newest-first ordering in both ki
 nix develop -c ./check.sh
 ```
 
-Lints what the skill ships, holds `SKILL.md` to the frontmatter an agent loads it by, resolves every reference link and heading anchor, and runs the checker against this repository's own changelog first — the first repository it has to be right about
+Lints what the skill ships, runs the [ci](https://github.com/rokokol/ci-skill) skill's `check-skill.sh` — `SKILL.md` loads, every reference is reached from it by a chain of links, every link and heading anchor resolves, and each of those checks is proven able to fail on a planted defect — and runs the checker against this repository's own changelog first, the first repository it has to be right about
 
 Then it proves the checker can fail, one fixture per rule, each of which must be rejected **with that rule's own message**: a checker whose findings all come from one over-broad branch reads as thorough while testing one thing. The two correct fixtures, dated and numbered, must come back clean, because a checker that cries wolf gets switched off
 
@@ -91,6 +91,7 @@ SKILL.md              the rules an agent reads
 check-changelog.sh    the checker, which takes any changelog
 references/           versioning (the VERSION file), changelog (the culture), release (the ritual)
 check.sh              the self-testing gate
+check-skill.sh        the gate every skill repository shares, copied verbatim from the ci skill
 tests/fixtures/       one known-bad changelog per rule, plus the good ones
 ```
 

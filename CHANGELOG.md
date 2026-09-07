@@ -2,6 +2,13 @@
 
 Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), dated rather than numbered, and with no `Unreleased` section — this repository is read at whatever revision you have checked out, so whatever is on the default branch is what every reader already has. The rule is this skill's own, in [references/changelog.md](references/changelog.md)
 
+## 2026-09-07
+
+### Added
+
+- `check-skill.sh`, the gate every skill repository shares, copied verbatim from the [ci](https://github.com/rokokol/ci-skill) skill: `SKILL.md` loads (frontmatter closed, name valid and agreeing with the symlink, description within what an agent reads), every reference is reached from `SKILL.md` by a chain of real links, every link and anchor resolves — and each of those is proven able to fail on a planted defect every time the gate runs. It replaces this repository's own frontmatter and link sections, which checked less and never proved themselves
+- fixtures for every branch of `check-changelog.sh` that had none: a `## [v1.2]` heading is rejected as not a version, a prerelease suffix in both `VERSION` and its heading is accepted alongside the bracketed `## [Unreleased]` spelling, the `VERSION` beside a changelog is found with no flag at all, and an unreadable or empty version file is refused with exit 2 rather than reported as a finding
+
 ## 2026-09-05
 
 ### Added

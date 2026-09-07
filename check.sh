@@ -14,7 +14,7 @@ cd "$HERE"
 
 # One source of truth for what gets linted. A second copy of this list drifts, and a
 # drifted list lies about what was checked.
-scripts=(check.sh check-changelog.sh)
+scripts=(check.sh check-changelog.sh check-skill.sh)
 skill_name=versioning
 
 fail() {
@@ -56,15 +56,6 @@ if grep -rEn 'nix (run|shell) nixpkgs#|npx +[a-z@.-]|pip +install |go +install .
   fail "an unpinned registry lookup in a workflow — pin the tool in the flake's dev shell and use nix develop"
 fi
 
-echo "== SKILL.md carries the frontmatter an agent loads it by"
-head -1 SKILL.md | grep -qx -- '---' || fail "SKILL.md does not open with a frontmatter block"
-front=$(sed -n '2,/^---$/p' SKILL.md)
-for key in name description license; do
-  grep -q "^$key:" <<<"$front" || fail "SKILL.md frontmatter has no $key"
-done
-grep -qx "name: $skill_name" <<<"$front" ||
-  fail "SKILL.md does not call this skill '$skill_name', which is what the readme and the symlink call it"
-
 echo "== no paragraph in the readme is hard-wrapped"
 # GitHub soft-wraps, so a manual break means a one-word edit reflows every line after it.
 # The rule's home is the create-readme skill, which cannot be assumed present in CI, so the
@@ -81,35 +72,10 @@ wrapped=$(hard_wrapped README.md)
 [[ -z "$wrapped" ]] ||
   fail "README.md hard-wraps a paragraph at line(s): $(tr '\n' ' ' <<<"$wrapped")— one paragraph is one line"
 
-echo "== every reference is reachable, and every link and anchor resolves"
-docs=(SKILL.md README.md CHANGELOG.md)
-refs=()
-while IFS= read -r ref; do refs+=("$ref"); done < <(find references -type f -name '*.md' | sort)
-((${#refs[@]} > 0)) || fail "no references were found — the extractor is broken"
-for ref in "${refs[@]}"; do
-  grep -qrF "$(basename "$ref")" SKILL.md references/ ||
-    fail "$ref exists but nothing links to it — it will rot unread"
-done
-for doc in "${docs[@]}" "${refs[@]}"; do
-  dir=$(dirname "$doc")
-  while IFS= read -r link; do
-    target="${link%%#*}"
-    anchor="${link#*#}"
-    [[ "$anchor" == "$link" ]] && anchor=""
-    if [[ -n "$target" ]]; then
-      [[ -e "$dir/$target" ]] || fail "$doc links to $target, which does not exist"
-      path="$dir/$target"
-    else
-      path="$doc"
-    fi
-    [[ -n "$anchor" && -f "$path" ]] || continue
-    if ! sed -n 's/^#\{1,6\} *//p' "$path" |
-      tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd 'a-z0-9-\n' |
-      grep -qx -- "$anchor"; then
-      fail "$doc links to #$anchor in $path, where no heading has that anchor"
-    fi
-  done < <(grep -o '](\([^)]*\))' "$doc" | sed 's/^](//; s/)$//' | grep -v '^[a-z]*://')
-done
+echo "== SKILL.md loads, every reference is reachable, and every link and anchor resolves"
+# The one gate every skill repository shares, copied verbatim from the ci skill. It proves
+# each of its own checks able to fail on every run, so nothing here has to
+./check-skill.sh -n "$skill_name" .
 
 echo "== this repository's own changelog obeys the rules it hands out"
 # The first repository the checker has to be right about is this one
@@ -124,6 +90,10 @@ echo "== the checker accepts a changelog that is correct, in both shapes"
 # field rather than by sorting text
 ./check-changelog.sh -n tests/fixtures/good-double-digit.md ||
   fail "1.10.0 above 1.9.0 was called out of order — the version comparison is textual"
+# The bracketed `## [Unreleased]` spelling, and a prerelease suffix both in VERSION and in
+# the heading that has to match it — the suffix is ignored for ordering, not for matching
+./check-changelog.sh -v tests/fixtures/VERSION-2.0.0-rc.1 tests/fixtures/good-prerelease.md ||
+  fail "a correct changelog with a prerelease and a bracketed Unreleased was rejected"
 
 echo "== and rejects each thing it claims to catch, naming that thing"
 # One fixture per rule, and the message must be the rule's own: a checker whose findings
@@ -142,9 +112,13 @@ rejects versions-out-of-order.md "is not older than the" -n
 rejects versions-double-digit.md "[1.10.0] is not older than the [1.9.0]" -n
 rejects numbered-above-dated.md "a numbered heading above a dated one" -n
 rejects nonsense-heading.md "is neither a version, a date, nor Unreleased" -n
+rejects not-a-version-heading.md "is not a version heading — expected ## [x.y.z]" -n
 rejects no-headings.md "no '## ' headings at all" -n
 rejects dated-with-a-version.md "a dated heading in a repository that ships version" -v tests/fixtures/VERSION-1.2.0
 rejects good-numbered.md "but no '## [9.9.9]' heading records what is in it" -v tests/fixtures/VERSION-9.9.9
+# No flag at all: the VERSION beside the changelog must be found by itself. Were it not,
+# this numbered changelog would pass, so the rejection is the proof that discovery ran
+rejects beside-its-version/CHANGELOG.md "VERSION says 9.9.9 but no '## [9.9.9]'"
 
 echo "== the bash-3.2 guard catches each construct, and never its own source"
 # Both halves. A guard that matched its own file would redden the commit that introduces
@@ -164,12 +138,19 @@ done <tests/fixtures/bash4-constructs.sh
 ((planted_count >= 8)) || fail "only $planted_count constructs were read from the fixture — the extractor is broken"
 
 echo "== the checker refuses rather than guessing when it is pointed at nothing"
-status=0
-./check-changelog.sh -n "$work/not-a-file.md" >/dev/null 2>&1 || status=$?
-((status == 2)) || fail "the checker did not refuse a changelog it cannot read (got $status)"
-status=0
-./check-changelog.sh -n -v tests/fixtures/VERSION-1.2.0 tests/fixtures/good-dated.md >/dev/null 2>&1 || status=$?
-((status == 2)) || fail "the checker accepted -n and -v together, which contradict each other (got $status)"
+# Exit 2 and a usage message, rather than 1 and a finding: a missing file is not a bad
+# changelog, and a gate that conflated the two would report a typo as a rule violation
+refuses() { # refuses WHAT EXPECTED-FRAGMENT ARGS...
+  local what="$1" want="$2" status=0 out
+  shift 2
+  out=$(./check-changelog.sh "$@" 2>&1) || status=$?
+  ((status == 2)) || fail "the checker did not refuse $what (got $status)"
+  [[ "$out" == *"$want"* ]] || fail "the checker refused $what for the wrong reason: $out"
+}
+refuses "a changelog it cannot read" "cannot read" -n "$work/not-a-file.md"
+refuses "a version file it cannot read" "cannot read" -v "$work/not-a-VERSION" tests/fixtures/good-numbered.md
+refuses "an empty version file" "is empty" -v tests/fixtures/VERSION-empty tests/fixtures/good-numbered.md
+refuses "-n and -v together, which contradict each other" "contradict" -n -v tests/fixtures/VERSION-1.2.0 tests/fixtures/good-dated.md
 
 echo
 echo "check: everything holds"

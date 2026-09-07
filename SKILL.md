@@ -75,6 +75,7 @@ SKILL.md              this file — the rules
 check-changelog.sh    the checker, which takes any changelog
 references/           versioning (the VERSION file), changelog (the culture), release (the ritual)
 check.sh              this repo's own gate, self-tested against known-bad fixtures
+check-skill.sh        the gate every skill repository shares, copied verbatim from the ci skill
 tests/fixtures/       one known-bad changelog per rule, plus the good ones
 ```
 
