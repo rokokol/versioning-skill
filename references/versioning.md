@@ -13,6 +13,8 @@ If yes, it is a shipped artifact and everything below applies. If no — the rep
 
 Such a repository carries no `VERSION` file, no version badge and no tag-pinned install line; its install instructions clone or pull the default branch, `git pull` is the whole upgrade path, and its changelog is dated. Skills, prompt libraries, docs-only repositories and dotfiles trees are all in this category
 
+A skill that hands files to other repositories is no exception. What a consumer has is a copy, and the copy is pinned by the commit it was taken at, in that repository's vendor lock — which answers "which one do you have" more exactly than a number would, with nothing to bump and no tag to move. How the copies are kept current is the ci skill's [vendoring cascade](https://github.com/rokokol/ci-skill/blob/master/references/bump-cascade.md#vendored-files)
+
 The borderline case worth naming: a repository nobody installs *yet*. It has no version until it ships one — adding a `VERSION` file in advance does not create the promise, it only creates something to be wrong about
 
 ## Where the version lives
@@ -28,7 +30,7 @@ Two hand-kept copies of a version number disagree within a month, and the disagr
 
 ## The check that keeps them together
 
-[`check-changelog.sh`](../check-changelog.sh), copied beside the workflow from this skill, is the check — one step, rather than an inline grep beside it that would be a second, weaker copy of the same rule:
+[`check-changelog.sh`](../check-changelog.sh), taken into the repository by the ci skill's [vendoring cascade](https://github.com/rokokol/ci-skill/blob/master/references/bump-cascade.md#vendored-files), is the check — one step, rather than an inline grep beside it that would be a second, weaker copy of the same rule:
 
 ```yaml
 - name: VERSION matches CHANGELOG

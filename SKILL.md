@@ -32,6 +32,10 @@ Getting this wrong is not cosmetic. A version nobody can install is a number tha
 - **The changelog has no section in the README.** It is its own file, linked, not summarised — see [create-readme](https://github.com/rokokol/create-readme-skill)
 - **Releasing is a ritual, and it is checkable.** The version bump and the changelog section move in one commit, the tag follows, the release notes are that section, and a pushed tag is never moved. See [references/release.md](references/release.md)
 
+## Taking the checker into another repository
+
+`check-changelog.sh` is the one file this skill hands to other repositories, and it travels by the ci skill's vendoring cascade rather than by hand: `vendor-sync.sh add check-changelog.sh rokokol/versioning-skill check-changelog.sh` writes the copy and its lock line, the repository's gate runs the copy, and the weekly cascade brings every later fix. A copy is never edited in place — a change goes here, where every copy will get it. The mechanism itself is described once, in the ci skill's [vendored files](https://github.com/rokokol/ci-skill/blob/master/references/bump-cascade.md#vendored-files)
+
 ## Layout
 
 ```
@@ -39,9 +43,9 @@ SKILL.md              this file — the rules
 check-changelog.sh    the checker, which takes any changelog
 references/           versioning (the VERSION file), changelog (the culture), release (the ritual)
 check.sh              this repo's own gate, self-tested against known-bad fixtures
-check-skill.sh        the gate every skill repository shares, copied verbatim from the ci skill
-check-pins.sh         the pin guard for the workflows, copied verbatim from the ci skill
+check-skill.sh        the gate every skill repository shares, vendored from the ci skill
+check-pins.sh         the pin guard for the workflows, vendored from the ci skill
 tests/fixtures/       one known-bad changelog per rule, plus the good ones
 ```
 
-What gates a pull request, how a workflow is pinned and how badges are earned is the [ci](https://github.com/rokokol/ci-skill) skill's subject, not this one's; the Nix family's own concretes are in [huix-standard](https://github.com/rokokol/huix-standard-skill)
+What gates a pull request, how a workflow is pinned and how badges are earned is the [ci](https://github.com/rokokol/ci-skill) skill's subject, not this one's

@@ -11,6 +11,9 @@ Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), d
 - `references/changelog.md` lists the groups in Keep a Changelog's order; `references/versioning.md` says what 0.y.z and a prerelease promise, and shows the CI check as a `check-changelog.sh` step instead of an inline grep that was a weaker copy of it
 - the readme links to the rules in `SKILL.md` instead of keeping a table of them, which had drifted — only the table said a pushed tag is never moved, and `SKILL.md` says it now
 - the description says "git tag" and "git-тег": a bare "tag" also means a note's tag, which is the obsidian-cli skill's
+- `SKILL.md` says how another repository takes `check-changelog.sh`: through the ci skill's vendoring cascade, never by hand, with a fix going here rather than into a copy. The checker's own header says the same, so every copy carries it
+- `references/versioning.md` says that a skill which hands files to other repositories still has no version: its copies are pinned by the commit they were taken at
+- `SKILL.md` and the readme no longer point at huix-standard for the Nix family's concretes: that skill links here for its version rules, and a general skill naming a particular one was a dependency in the wrong direction
 
 ### Fixed
 

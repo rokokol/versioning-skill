@@ -82,9 +82,9 @@ SKILL.md              the rules an agent reads
 check-changelog.sh    the checker, which takes any changelog
 references/           versioning (the VERSION file), changelog (the culture), release (the ritual)
 check.sh              the self-testing gate
-check-skill.sh        the gate every skill repository shares, copied verbatim from the ci skill
-check-pins.sh         the pin guard for the workflows, copied verbatim from the ci skill
+check-skill.sh        the gate every skill repository shares, vendored from the ci skill
+check-pins.sh         the pin guard for the workflows, vendored from the ci skill
 tests/fixtures/       one known-bad changelog per rule, plus the good ones
 ```
 
-What gates a pull request, how a workflow is pinned and how badges are earned belongs to the [ci](https://github.com/rokokol/ci-skill) skill; the Nix family's own concretes to [huix-standard](https://github.com/rokokol/huix-standard-skill); what may go in a commit *message* to [ai-commit-trailers](https://github.com/rokokol/ai-commit-trailers-skill)
+What gates a pull request, how a workflow is pinned and how badges are earned belongs to the [ci](https://github.com/rokokol/ci-skill) skill; what may go in a commit *message* to [ai-commit-trailers](https://github.com/rokokol/ai-commit-trailers-skill)
