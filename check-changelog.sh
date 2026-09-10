@@ -8,6 +8,8 @@
 #   -v FILE   the repository's version file (default: VERSION beside the changelog)
 #   -n        assert this repository has no version, whatever files are lying around
 #
+# Options may come before or after the changelog, and there is one changelog per run.
+#
 # A repository HAS a version when someone can install a particular one and report a bug
 # against it. Then its headings are `## [x.y.z]` and an `## Unreleased` section is where
 # work waits for the next release. A repository that is only ever read at whatever revision
@@ -17,7 +19,9 @@
 # Exit: 0 clean, 1 findings printed, 2 a usage error.
 set -uo pipefail
 
-usage() { sed -n '2,9p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; }
+# The help is the header comment above, whole: it ends where the first non-comment line
+# starts, so the text can grow without a line count here going stale
+usage() { awk 'NR == 1 { next } !/^#/ { exit } { sub(/^# ?/, ""); print }' "${BASH_SOURCE[0]}"; }
 
 die() {
   printf 'check-changelog: %s\n' "$1" >&2
@@ -26,6 +30,7 @@ die() {
 
 version_file=""
 no_version=""
+changelog=""
 while (($#)); do
   case "$1" in
     -v)
@@ -44,11 +49,17 @@ while (($#)); do
       exit 0
       ;;
     -*) die "unknown option: $1" ;;
-    *) break ;;
+    *)
+      # Not the end of the options: parsing used to stop at the file, so a -v after it
+      # was dropped without a word, and so was a second file
+      [[ -z "$changelog" ]] || die "one changelog at a time — got $changelog and $1"
+      changelog="$1"
+      shift
+      ;;
   esac
 done
 
-changelog="${1:-CHANGELOG.md}"
+changelog="${changelog:-CHANGELOG.md}"
 [[ -r "$changelog" ]] || die "cannot read $changelog"
 [[ -z "$no_version" || -z "$version_file" ]] || die "-n and -v contradict each other"
 
@@ -114,6 +125,19 @@ version_lt() { # version_lt A B -> 0 when A < B
   return 1
 }
 
+# Whether a YYYY-MM-DD names a day that exists. By arithmetic rather than `date`, whose
+# parsing flags differ between GNU and BSD, and some BSD versions roll 02-30 into March
+real_day() { # real_day YYYY-MM-DD -> 0 when the day exists
+  local y=$((10#${1:0:4})) m=$((10#${1:5:2})) d=$((10#${1:8:2})) last
+  case $m in
+    1 | 3 | 5 | 7 | 8 | 10 | 12) last=31 ;;
+    4 | 6 | 9 | 11) last=30 ;;
+    2) if (((y % 4 == 0 && y % 100 != 0) || y % 400 == 0)); then last=29; else last=28; fi ;;
+    *) return 1 ;;
+  esac
+  ((d >= 1 && d <= last))
+}
+
 findings=0
 report() { # report LINE MESSAGE
   printf '%s:%s: %s\n' "$changelog" "$1" "$2"
@@ -135,6 +159,7 @@ done < <(grep -n '^## ' "$changelog")
 }
 
 seen_dated=""
+seen_release=""
 prev_date=""
 prev_version=""
 found_current=""
@@ -149,6 +174,8 @@ for entry in "${headings[@]}"; do
     Unreleased | '[Unreleased]')
       if [[ -z "$version" ]]; then
         report "$line" "an Unreleased section in a repository with no version — it holds work that has landed but not shipped, which cannot happen here, so it never closes"
+      elif [[ -n "$seen_release" ]]; then
+        report "$line" "an Unreleased section below a release — work waiting for the next release goes on top, above everything that has shipped"
       fi
       ;;
 
@@ -161,10 +188,13 @@ for entry in "${headings[@]}"; do
         continue
       fi
       [[ "$v" == "$version" ]] && found_current=1
+      seen_release=1
       if [[ -n "$seen_dated" ]]; then
         report "$line" "a numbered heading above a dated one — dated entries belong on top, where a repository that stopped shipping versions keeps its newer work"
       fi
-      if [[ -n "$prev_version" ]]; then
+      if [[ "$v" == "$prev_version" ]]; then
+        report "$line" "[$v] appears twice — one heading per release, and the second one's entries belong under the first"
+      elif [[ -n "$prev_version" ]]; then
         version_lt "$v" "$prev_version" ||
           report "$line" "[$v] is not older than the [$prev_version] above it — newest first"
       fi
@@ -173,10 +203,17 @@ for entry in "${headings[@]}"; do
 
     [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9])
       seen_dated=1
+      seen_release=1
+      if ! real_day "$text"; then
+        report "$line" "$text is not a date — the heading has the shape of one, but no such day exists"
+        continue
+      fi
       if [[ -n "$version" ]]; then
         report "$line" "a dated heading in a repository that ships version $version — a shipped artifact's changelog is numbered, so a reader can match an entry to what they installed"
       fi
-      if [[ -n "$prev_date" && ! "$text" < "$prev_date" ]]; then
+      if [[ "$text" == "$prev_date" ]]; then
+        report "$line" "$text appears twice — one heading per day, and the second one's entries belong under the first"
+      elif [[ -n "$prev_date" && ! "$text" < "$prev_date" ]]; then
         report "$line" "$text is not older than the $prev_date above it — newest first"
       fi
       prev_date="$text"

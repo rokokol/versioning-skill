@@ -51,16 +51,7 @@ Getting this wrong is not cosmetic. A version nobody can install is a number tha
 
 ## The rules
 
-| | |
-|---|---|
-| **[One place holds the version](references/versioning.md)** | A `VERSION` file at the root; the metadata reads it, the tools print it, CI cross-checks it against the changelog. Two hand-kept copies disagree within a month, and the disagreement reaches a user as an unactionable bug report |
-| **[The changelog's shape follows from the first question](references/changelog.md)** | Versioned: `## [x.y.z]` headings, with `## Unreleased` for work awaiting a release. Versionless: `## YYYY-MM-DD` headings and **no `Unreleased`** — it holds work that has landed but not shipped, a state such a repository can never be in, so the section never closes |
-| **[An entry earns its place by being observable from outside](references/changelog.md)** | Behaviour, an interface, a default, a dependency, a removal. Not a refactor, not an internal rename, not "improved the code". If you cannot say who would notice, there is nothing to write |
-| **[The entry says what; the commit says why](references/changelog.md)** | The changelog reader is deciding whether to upgrade and has thirty seconds. The reasoning belongs in the commit body, where whoever is chasing that decision will look |
-| **[History is not edited](references/changelog.md)** | A change later reverted keeps both entries. The person who installed the version in between is the reason the record has to be honest |
-| **[Newest first, one kind of heading](references/changelog.md)** | Dates descending, versions descending. A repository that stopped shipping versions keeps its dated entries above its numbered history — the one mixture that means anything |
-| **[Releasing is a ritual, and it is checkable](references/release.md)** | The bump and the changelog section move in one commit, so neither can be forgotten; the tag follows; the release notes are that section rather than a re-written summary that drifts from it |
-| **[Never move a tag](references/release.md)** | Somebody has already fetched it. Cut the next patch and say what happened, because a moved tag makes their checkout silently differ from yours |
+They are in [SKILL.md](SKILL.md#the-rules), one line each with a link to the reference that argues it — one list, kept where the agent reads it, rather than a second copy here
 
 ## The checker
 
@@ -72,7 +63,7 @@ check-changelog.sh -n                 # assert this repository has no version
 check-changelog.sh -v path/to/VERSION path/to/CHANGELOG.md
 ```
 
-It decides the mechanical half: heading shapes, newest-first ordering in both kinds, an `Unreleased` section where there is nothing to release, a dated heading in a repository that ships a version, a numbered heading above a dated one, and whether the current `VERSION` has a section at all. What it cannot decide is whether an entry deserved to exist, which is the half that needs a person
+It decides the mechanical half of the rules, and `--help` says what it checks. What it cannot decide is whether an entry deserved to exist, which is the half that needs a person
 
 ## Tests
 
@@ -82,7 +73,7 @@ nix develop -c ./check.sh
 
 Lints what the skill ships, runs the [ci](https://github.com/rokokol/ci-skill) skill's `check-skill.sh` — `SKILL.md` loads, every reference is reached from it by a chain of links, every link and heading anchor resolves, and each of those checks is proven able to fail on a planted defect — and runs the checker against this repository's own changelog first, the first repository it has to be right about
 
-Then it proves the checker can fail, one fixture per rule, each of which must be rejected **with that rule's own message**: a checker whose findings all come from one over-broad branch reads as thorough while testing one thing. The two correct fixtures, dated and numbered, must come back clean, because a checker that cries wolf gets switched off
+Then it proves the checker can fail, one fixture per rule, each of which must be rejected **with that rule's own message**: a checker whose findings all come from one over-broad branch reads as thorough while testing one thing. The correct fixtures, in both shapes, must come back clean, because a checker that cries wolf gets switched off
 
 ## Layout
 

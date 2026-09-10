@@ -56,21 +56,52 @@ actionlint
 # each unpinned shape and stays quiet on the pinned spellings, then scans the workflows
 ./check-pins.sh
 
-echo "== no paragraph in the readme is hard-wrapped"
-# GitHub soft-wraps, so a manual break means a one-word edit reflows every line after it.
-# The rule's home is the create-readme skill, which cannot be assumed present in CI, so the
-# one machine-decidable part of it is spelled here too.
+echo "== no paragraph in the docs is hard-wrapped or ends on a full stop"
+# GitHub soft-wraps, so a manual break means a one-word edit reflows every line after it,
+# and a paragraph ends bare. The rules' home is the create-readme skill, which cannot be
+# assumed present in CI, so their machine-decidable part is spelled here — over every doc
+# the skill ships, not the readme alone: SKILL.md and the references are what an agent reads
+docs=(README.md SKILL.md CHANGELOG.md references/*.md)
 hard_wrapped() { # hard_wrapped FILE -> the offending line numbers
   awk '
-    /^```/ { fence = !fence; prev = 0; next }
+    # the frontmatter is YAML, whose keys sit one per line
+    NR == 1 && /^---$/ { front = 1; next }
+    front { if (/^---$/) front = 0; next }
+    /^```/ { fence = !fence; prev = 0; item = 0; next }
     fence { next }
-    /^[[:space:]]*$/ || /^[#|>< ]/ || /^[-*+]/ || /^!\[/ || /^\[/ { prev = 0; next }
-    { if (prev) print NR; prev = 1 }
+    # a list item continued on an indented line is a wrapped list item
+    item && /^  +[^ ]/ && !/^  +([-*+]|[0-9]+\.) / { print NR; next }
+    /^[-*+] / || /^[0-9]+\. / { prev = 0; item = 1; next }
+    /^[[:space:]]*$/ || /^[#|>< ]/ || /^!\[/ || /^\[/ { prev = 0; item = 0; next }
+    { if (prev) print NR; prev = 1; item = 0 }
   ' "$1"
 }
-wrapped=$(hard_wrapped README.md)
-[[ -z "$wrapped" ]] ||
-  fail "README.md hard-wraps a paragraph at line(s): $(tr '\n' ' ' <<<"$wrapped")— one paragraph is one line"
+full_stopped() { # full_stopped FILE -> the lines of prose that end on a full stop
+  awk '
+    NR == 1 && /^---$/ { front = 1; next }
+    front { if (/^---$/) front = 0; next }
+    /^```/ { fence = !fence; next }
+    fence || /^    / || /^[|]/ { next }
+    # seen through the markup that can close after it: `.**` and `.)` end on a stop too
+    { s = $0; sub(/[*_)`"]+$/, "", s); if (s ~ /[^.]\.$/) print NR }
+  ' "$1"
+}
+for doc in "${docs[@]}"; do
+  wrapped=$(hard_wrapped "$doc")
+  [[ -z "$wrapped" ]] ||
+    fail "$doc hard-wraps a paragraph at line(s): $(tr '\n' ' ' <<<"$wrapped")— one paragraph is one line"
+  stopped=$(full_stopped "$doc")
+  [[ -z "$stopped" ]] ||
+    fail "$doc ends prose on a full stop at line(s): $(tr '\n' ' ' <<<"$stopped")— the last sentence ends bare"
+done
+# Both able to fail, on the shapes they claim: a wrapped paragraph and a wrapped list item,
+# a full stop bare and one behind closing markup
+printf 'one line of a paragraph\nand the next line of it\n\n- a list item\n  wrapped onto a second line\n' >"$work/wrapped.md"
+[[ "$(hard_wrapped "$work/wrapped.md" | wc -l)" -eq 2 ]] ||
+  fail "the hard-wrap check missed a wrapped paragraph or a wrapped list item"
+printf 'A sentence.\n\n**A bold one.**\n\n(A parenthesis.)\n' >"$work/stopped.md"
+[[ "$(full_stopped "$work/stopped.md" | wc -l)" -eq 3 ]] ||
+  fail "the full-stop check missed a full stop, bare or behind markup"
 
 echo "== SKILL.md loads, every reference is reachable, and every link and anchor resolves"
 # The one gate every skill repository shares, copied verbatim from the ci skill. It proves
@@ -125,6 +156,18 @@ rejects good-numbered.md "but no '## [9.9.9]' heading records what is in it" -v 
 # No flag at all: the VERSION beside the changelog must be found by itself. Were it not,
 # this numbered changelog would pass, so the rejection is the proof that discovery ran
 rejects beside-its-version/CHANGELOG.md "VERSION says 9.9.9 but no '## [9.9.9]'"
+# A heading repeated is its own mistake, not an ordering one: "not older than the one above
+# it" sends the reader to reorder what needs merging
+rejects duplicate-dates.md "2026-09-05 appears twice" -n
+rejects duplicate-versions.md "[1.2.0] appears twice" -v tests/fixtures/VERSION-1.2.0
+# The heading's shape alone let a day February does not have through
+rejects impossible-date.md "2026-02-30 is not a date" -n
+rejects unreleased-below-release.md "an Unreleased section below a release" -v tests/fixtures/VERSION-1.2.0
+# An option after the changelog is still an option. Parsing used to stop at the file, so a
+# trailing -v was dropped without a word and the file was checked as if it had no version
+out=$(./check-changelog.sh tests/fixtures/good-numbered.md -v tests/fixtures/VERSION-9.9.9 2>&1) &&
+  fail "an option after the changelog was ignored — good-numbered.md passed a -v it cannot satisfy"
+[[ "$out" == *"no '## [9.9.9]'"* ]] || fail "an option after the changelog was ignored: $out"
 
 echo "== the bash-3.2 guard catches each construct, and never its own source"
 # Both halves. A guard that matched its own file would redden the commit that introduces
@@ -159,6 +202,10 @@ refuses "an empty version file" "is empty" -v tests/fixtures/VERSION-empty tests
 refuses "-n and -v together, which contradict each other" "contradict" -n -v tests/fixtures/VERSION-1.2.0 tests/fixtures/good-dated.md
 # `${2:?…}` printed bash's own message and exited 1 here, which reads as a finding
 refuses "a -v with no file after it" "-v needs a file" -v
+# A second file used to be ignored, so a gate given two changelogs checked one of them
+refuses "two changelogs at once" "one changelog at a time" -n tests/fixtures/good-dated.md tests/fixtures/good-dated.md
+# The help is the header, whole: it used to stop before the exit codes it promises
+./check-changelog.sh --help | grep -q '^Exit: 0 clean' || fail "--help stops before the exit codes"
 
 echo
 echo "check: everything holds"

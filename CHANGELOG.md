@@ -7,12 +7,21 @@ Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), d
 ### Changed
 
 - `references/release.md` no longer says the tag↔`VERSION` agreement cannot be checked. A workflow on a tag push can compare the two on a shallow checkout and gate the job that publishes; what stays a ritual is that the tag goes on the commit that was verified. The file is also unwrapped and its paragraphs end bare, like the rest of the family
+- `SKILL.md`, `references/versioning.md` and `references/changelog.md` are unwrapped and end their paragraphs bare too, and the gate holds every doc to both rules — it used to check the readme for wrapping alone
+- `references/changelog.md` lists the groups in Keep a Changelog's order; `references/versioning.md` says what 0.y.z and a prerelease promise, and shows the CI check as a `check-changelog.sh` step instead of an inline grep that was a weaker copy of it
+- the readme links to the rules in `SKILL.md` instead of keeping a table of them, which had drifted — only the table said a pushed tag is never moved, and `SKILL.md` says it now
+- the description says "git tag" and "git-тег": a bare "tag" also means a note's tag, which is the obsidian-cli skill's
 
 ### Fixed
 
 - **a release above its own candidates was reported out of order.** `version_lt` dropped the prerelease suffix before comparing, so `2.0.0` and `2.0.0-rc.1` came out equal, and the most ordinary history a project that ships release candidates has was reddened — in every repository this checker is copied into. It orders by semver precedence now: a release above its own prereleases, identifiers dot by dot, numeric ones as numbers and below alphanumeric ones. One fixture carries a release over its candidates and `beta.11` over `beta.2`; another has to be rejected for candidates in the wrong order. The first draft of the fix asked the two sides in the wrong order, and that fixture caught it on its first run
 - **`-v` with no file exited 1**, printing bash's own `${2:?…}` message where the header promises 2 for a usage error, so a caller read a typo as a finding. It refuses with exit 2 now, and the gate holds it to that
 - **the release command cut the last line off a first release's notes.** Its `sed` range ran to the end of the file when the section was the last one, and the `sed '$d'` after it removed that section's own last line; it also kept the heading, and read the dots in a version as wildcards. `references/release.md` now takes the section with `awk` on the literal heading, pushes the tag, and creates the release with `--verify-tag`, so `gh` refuses instead of tagging whatever the default branch points at
+- **`check-changelog.sh` stopped reading at the changelog.** A `-v` after the file was dropped without a word and the file checked as if it had no version, and a second file was never looked at. Options go anywhere now, and a second file is refused with exit 2
+- a heading repeated was reported as out of order, which sends the reader to reorder what needs merging; it is reported as appearing twice
+- a date heading of the right shape for a day that does not exist, such as `2026-02-30`, passed
+- an `Unreleased` section below a release passed
+- `check-changelog.sh --help` stopped before the exit codes it promises
 
 ## 2026-09-07
 
