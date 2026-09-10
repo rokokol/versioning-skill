@@ -29,7 +29,10 @@ no_version=""
 while (($#)); do
   case "$1" in
     -v)
-      version_file="${2:?-v needs a file}"
+      # Not ${2:?…}: that prints bash's own message and exits 1, which a caller reads as a
+      # finding, where the header promises 2 for a usage error
+      (($# >= 2)) || die "-v needs a file"
+      version_file="$2"
       shift 2
       ;;
     -n)
@@ -61,19 +64,52 @@ if [[ -n "$version_file" ]]; then
   [[ -n "$version" ]] || die "$version_file is empty"
 fi
 
-# Strictly-less-than on x.y.z, field by field. Not `sort -V`, which is a GNU extension the
-# BSD sort on macOS may not have — the same reason there is no `mapfile` here. A
-# prerelease suffix is ignored for ordering; it is not what this check is about.
+# Strictly-less-than by semver precedence (semver.org, section 11). Not `sort -V`, which is
+# a GNU extension the BSD sort on macOS may not have — the same reason there is no
+# `mapfile` here. Build metadata after `+` never counts. A prerelease sorts below the
+# release it precedes, and prerelease identifiers compare dot by dot: numeric ones as
+# numbers, numeric below alphanumeric, and a shorter list below a longer one it prefixes.
+#
+# The suffix used to be dropped before comparing, which made `2.0.0` and `2.0.0-rc.1`
+# equal and reported the correct history — a release above its own candidate — as out of
+# order, in every repository that ships release candidates
 version_lt() { # version_lt A B -> 0 when A < B
+  local a="${1%%+*}" b="${2%%+*}"
+  local pre_a="" pre_b="" i x y
+  [[ "$a" == *-* ]] && pre_a="${a#*-}"
+  [[ "$b" == *-* ]] && pre_b="${b#*-}"
   local -a ia ib
-  local i x y
-  IFS=. read -r -a ia <<<"${1%%[-+]*}"
-  IFS=. read -r -a ib <<<"${2%%[-+]*}"
+  IFS=. read -r -a ia <<<"${a%%-*}"
+  IFS=. read -r -a ib <<<"${b%%-*}"
   for i in 0 1 2; do
     x=${ia[$i]:-0}
     y=${ib[$i]:-0}
     ((10#$x < 10#$y)) && return 0
     ((10#$x > 10#$y)) && return 1
+  done
+  # Equal cores: a release outranks every prerelease of itself. A's side is asked first —
+  # asked the other way round, B being a release answered "not less" even when A was that
+  # release's own candidate
+  [[ -z "$pre_a" ]] && return 1
+  [[ -z "$pre_b" ]] && return 0
+  IFS=. read -r -a ia <<<"$pre_a"
+  IFS=. read -r -a ib <<<"$pre_b"
+  for ((i = 0; i < ${#ia[@]} || i < ${#ib[@]}; i++)); do
+    ((i < ${#ia[@]})) || return 0
+    ((i < ${#ib[@]})) || return 1
+    x=${ia[$i]}
+    y=${ib[$i]}
+    if [[ "$x" =~ ^[0-9]+$ && "$y" =~ ^[0-9]+$ ]]; then
+      ((10#$x < 10#$y)) && return 0
+      ((10#$x > 10#$y)) && return 1
+    elif [[ "$x" =~ ^[0-9]+$ ]]; then
+      return 0
+    elif [[ "$y" =~ ^[0-9]+$ ]]; then
+      return 1
+    else
+      [[ "$x" < "$y" ]] && return 0
+      [[ "$x" > "$y" ]] && return 1
+    fi
   done
   return 1
 }

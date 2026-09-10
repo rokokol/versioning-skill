@@ -2,6 +2,18 @@
 
 Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), dated rather than numbered, and with no `Unreleased` section — this repository is read at whatever revision you have checked out, so whatever is on the default branch is what every reader already has. The rule is this skill's own, in [references/changelog.md](references/changelog.md)
 
+## 2026-09-10
+
+### Changed
+
+- `references/release.md` no longer says the tag↔`VERSION` agreement cannot be checked. A workflow on a tag push can compare the two on a shallow checkout and gate the job that publishes; what stays a ritual is that the tag goes on the commit that was verified. The file is also unwrapped and its paragraphs end bare, like the rest of the family
+
+### Fixed
+
+- **a release above its own candidates was reported out of order.** `version_lt` dropped the prerelease suffix before comparing, so `2.0.0` and `2.0.0-rc.1` came out equal, and the most ordinary history a project that ships release candidates has was reddened — in every repository this checker is copied into. It orders by semver precedence now: a release above its own prereleases, identifiers dot by dot, numeric ones as numbers and below alphanumeric ones. One fixture carries a release over its candidates and `beta.11` over `beta.2`; another has to be rejected for candidates in the wrong order. The first draft of the fix asked the two sides in the wrong order, and that fixture caught it on its first run
+- **`-v` with no file exited 1**, printing bash's own `${2:?…}` message where the header promises 2 for a usage error, so a caller read a typo as a finding. It refuses with exit 2 now, and the gate holds it to that
+- **the release command cut the last line off a first release's notes.** Its `sed` range ran to the end of the file when the section was the last one, and the `sed '$d'` after it removed that section's own last line; it also kept the heading, and read the dots in a version as wildcards. `references/release.md` now takes the section with `awk` on the literal heading, pushes the tag, and creates the release with `--verify-tag`, so `gh` refuses instead of tagging whatever the default branch points at
+
 ## 2026-09-07
 
 ### Added

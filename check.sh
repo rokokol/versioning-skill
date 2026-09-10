@@ -91,9 +91,14 @@ echo "== the checker accepts a changelog that is correct, in both shapes"
 ./check-changelog.sh -n tests/fixtures/good-double-digit.md ||
   fail "1.10.0 above 1.9.0 was called out of order — the version comparison is textual"
 # The bracketed `## [Unreleased]` spelling, and a prerelease suffix both in VERSION and in
-# the heading that has to match it — the suffix is ignored for ordering, not for matching
+# the heading that has to match it
 ./check-changelog.sh -v tests/fixtures/VERSION-2.0.0-rc.1 tests/fixtures/good-prerelease.md ||
   fail "a correct changelog with a prerelease and a bracketed Unreleased was rejected"
+# A release above its own candidates, and candidates above each other. The suffix used to
+# be dropped before comparing, so 2.0.0 and 2.0.0-rc.1 came out equal and this — the most
+# ordinary history a project that ships candidates has — was reported as out of order
+./check-changelog.sh -v tests/fixtures/VERSION-2.0.0 tests/fixtures/good-release-above-its-candidates.md ||
+  fail "a release above its own candidates was called out of order — prerelease precedence is wrong"
 
 echo "== and rejects each thing it claims to catch, naming that thing"
 # One fixture per rule, and the message must be the rule's own: a checker whose findings
@@ -110,6 +115,7 @@ rejects unreleased-without-version.md "an Unreleased section in a repository wit
 rejects dates-out-of-order.md "is not older than the" -n
 rejects versions-out-of-order.md "is not older than the" -n
 rejects versions-double-digit.md "[1.10.0] is not older than the [1.9.0]" -n
+rejects candidates-out-of-order.md "[2.0.0-rc.2] is not older than the [2.0.0-rc.1]" -n
 rejects numbered-above-dated.md "a numbered heading above a dated one" -n
 rejects nonsense-heading.md "is neither a version, a date, nor Unreleased" -n
 rejects not-a-version-heading.md "is not a version heading — expected ## [x.y.z]" -n
@@ -151,6 +157,8 @@ refuses "a changelog it cannot read" "cannot read" -n "$work/not-a-file.md"
 refuses "a version file it cannot read" "cannot read" -v "$work/not-a-VERSION" tests/fixtures/good-numbered.md
 refuses "an empty version file" "is empty" -v tests/fixtures/VERSION-empty tests/fixtures/good-numbered.md
 refuses "-n and -v together, which contradict each other" "contradict" -n -v tests/fixtures/VERSION-1.2.0 tests/fixtures/good-dated.md
+# `${2:?…}` printed bash's own message and exited 1 here, which reads as a finding
+refuses "a -v with no file after it" "-v needs a file" -v
 
 echo
 echo "check: everything holds"

@@ -6,7 +6,7 @@
 
 ## [2.0.0-rc.1]
 
-- a prerelease: the suffix is ignored when ordering against 1.2.0, and kept when matching VERSION
+- a prerelease: newer than 1.2.0 by its core, and matched against VERSION suffix and all
 
 ## [1.2.0]
 
