@@ -14,7 +14,7 @@ cd "$HERE"
 
 # One source of truth for what gets linted. A second copy of this list drifts, and a
 # drifted list lies about what was checked.
-scripts=(check.sh check-changelog.sh check-skill.sh check-pins.sh)
+scripts=(check.sh check-changelog.sh check-skill.sh check-pins.sh vendor-sync.sh)
 skill_name=versioning
 
 fail() {
@@ -52,8 +52,11 @@ bash4=$(grep -nE "$bash4_pattern" "${scripts[@]}" | grep -vE ':[[:space:]]*#' ||
 echo "== the workflows are valid, and their tools come from the lock rather than a registry"
 [[ -d .github/workflows ]] || fail ".github/workflows is missing — nothing gates this repository"
 actionlint
-# The pin guard, copied verbatim from the ci skill: it proves on every run that it catches
-# each unpinned shape and stays quiet on the pinned spellings, then scans the workflows
+# The checkers below are vendored from the ci skill: every copy must still be the blob
+# .github/vendor.lock records, so one edited here instead of at its source fails by name
+./vendor-sync.sh check
+# The pin guard proves on every run that it catches each unpinned shape and stays quiet on
+# the pinned spellings, then scans the workflows
 ./check-pins.sh
 
 echo "== no paragraph in the docs is hard-wrapped or ends on a full stop"
