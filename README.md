@@ -84,6 +84,7 @@ references/           versioning (the VERSION file), changelog (the culture), re
 check.sh              the self-testing gate
 check-skill.sh        the gate every skill repository shares, vendored from the ci skill
 check-pins.sh         the pin guard for the workflows, vendored from the ci skill
+vendor-sync.sh        keeps the vendored copies byte-equal to their source, vendored from the ci skill
 tests/fixtures/       one known-bad changelog per rule, plus the good ones
 ```
 
