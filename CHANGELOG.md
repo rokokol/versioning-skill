@@ -2,6 +2,12 @@
 
 Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), dated rather than numbered, and with no `Unreleased` section — this repository is read at whatever revision you have checked out, so whatever is on the default branch is what every reader already has. The rule is this skill's own, in [references/changelog.md](references/changelog.md)
 
+## 2026-09-11
+
+### Changed
+
+- `check-changelog.sh` is held to its own header by the [bash-best-practices](https://github.com/rokokol/bash-best-practices-skill) skill's `check-sh.sh`, vendored: every flag its parser accepts and every code it exits with must be in the help, and the grep for constructs newer than bash 3.2 now lives there, applied because the header says `Needs bash 3.2 and POSIX tools only` — the line the header was missing. The gate's own bash-4 pattern and `tests/fixtures/bash4-constructs.sh` are gone with it
+
 ## 2026-09-10
 
 ### Changed

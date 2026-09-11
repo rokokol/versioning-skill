@@ -45,6 +45,7 @@ references/           versioning (the VERSION file), changelog (the culture), re
 check.sh              this repo's own gate, self-tested against known-bad fixtures
 check-skill.sh        the gate every skill repository shares, vendored from the ci skill
 check-pins.sh         the pin guard for the workflows, vendored from the ci skill
+check-sh.sh           holds check-changelog.sh's help to its code and its bash 3.2 claim to a proxy grep, vendored from the bash-best-practices skill
 vendor-sync.sh        keeps the vendored copies byte-equal to their source, vendored from the ci skill
 tests/fixtures/       one known-bad changelog per rule, plus the good ones
 ```

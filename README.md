@@ -71,7 +71,7 @@ It decides the mechanical half of the rules, and `--help` says what it checks. W
 nix develop -c ./check.sh
 ```
 
-Lints what the skill ships, runs the [ci](https://github.com/rokokol/ci-skill) skill's `check-skill.sh` — `SKILL.md` loads, every reference is reached from it by a chain of links, every link and heading anchor resolves, and each of those checks is proven able to fail on a planted defect — and runs the checker against this repository's own changelog first, the first repository it has to be right about
+Lints what the skill ships, runs the [ci](https://github.com/rokokol/ci-skill) skill's `check-skill.sh` — `SKILL.md` loads, every reference is reached from it by a chain of links, every link and heading anchor resolves, and each of those checks is proven able to fail on a planted defect — holds `check-changelog.sh` to its own header with the [bash-best-practices](https://github.com/rokokol/bash-best-practices-skill) skill's `check-sh.sh`, whose proxy grep for constructs newer than bash 3.2 replaced the one that lived here, and runs the checker against this repository's own changelog first, the first repository it has to be right about
 
 Then it proves the checker can fail, one fixture per rule, each of which must be rejected **with that rule's own message**: a checker whose findings all come from one over-broad branch reads as thorough while testing one thing. The correct fixtures, in both shapes, must come back clean, because a checker that cries wolf gets switched off
 
@@ -84,6 +84,7 @@ references/           versioning (the VERSION file), changelog (the culture), re
 check.sh              the self-testing gate
 check-skill.sh        the gate every skill repository shares, vendored from the ci skill
 check-pins.sh         the pin guard for the workflows, vendored from the ci skill
+check-sh.sh           holds check-changelog.sh's help to its code and its bash 3.2 claim to a proxy grep, vendored from the bash-best-practices skill
 vendor-sync.sh        keeps the vendored copies byte-equal to their source, vendored from the ci skill
 tests/fixtures/       one known-bad changelog per rule, plus the good ones
 ```

@@ -14,7 +14,7 @@ cd "$HERE"
 
 # One source of truth for what gets linted. A second copy of this list drifts, and a
 # drifted list lies about what was checked.
-scripts=(check.sh check-changelog.sh check-skill.sh check-pins.sh vendor-sync.sh)
+scripts=(check.sh check-changelog.sh check-sh.sh check-skill.sh check-pins.sh vendor-sync.sh)
 skill_name=versioning
 
 fail() {
@@ -37,17 +37,13 @@ for s in "${scripts[@]}"; do bash -n "$s"; done
 shellcheck "${scripts[@]}"
 shfmt -d -i 2 -ci "${scripts[@]}"
 
-echo "== nothing here needs a bash newer than the one macOS ships"
-# macOS ships bash 3.2, and this checker is meant to be dropped into other repositories'
-# gates — including theirs. Two of these were found the expensive way, by a CI run on a
-# machine none of this was written on: `[[ -v VAR ]]` is 4.2+, `mapfile` is 4.0+.
-# `sort -V` is a separate trap: not a bash version but a GNU one, absent from BSD sort.
-# Every literal below is split by a bracket expression so the pattern cannot match its own
-# source line — the same trick the ci skill's secret gate uses, and for the same reason: a
-# guard that reddens the commit introducing it gets deleted rather than fixed.
-bash4_pattern='\[\[[^]]*[-]v [A-Za-z_]|mapfil[e] |readarra[y] |declar[e] -A|loca[l] -A|\$\{[A-Za-z_]+,[,]\}|\$\{[A-Za-z_]+\^[\^]\}|sor[t] -[A-Za-z]*V'
-bash4=$(grep -nE "$bash4_pattern" "${scripts[@]}" | grep -vE ':[[:space:]]*#' || :)
-[[ -z "$bash4" ]] || fail "a construct newer than bash 3.2 (or GNU-only) in a script meant to travel:"$'\n'"$bash4"
+echo "== the checker keeps its header's promises: its help, its flags, its codes, its bash 3.2 claim"
+# The bash-best-practices skill's checker, vendored: it reads check-changelog.sh's flag
+# parser and exit codes out of the source and holds the help to them, and greps the
+# script for constructs newer than the bash 3.2 its header claims — the grep that used to
+# live here, now labelled as the proxy it is, with the proof being a run under 3.2. It
+# plants its own defects on every run, so nothing here has to prove it can fail
+./check-sh.sh check-changelog.sh
 
 echo "== the workflows are valid, and their tools come from the lock rather than a registry"
 [[ -d .github/workflows ]] || fail ".github/workflows is missing — nothing gates this repository"
@@ -171,23 +167,6 @@ rejects unreleased-below-release.md "an Unreleased section below a release" -v t
 out=$(./check-changelog.sh tests/fixtures/good-numbered.md -v tests/fixtures/VERSION-9.9.9 2>&1) &&
   fail "an option after the changelog was ignored — good-numbered.md passed a -v it cannot satisfy"
 [[ "$out" == *"no '## [9.9.9]'"* ]] || fail "an option after the changelog was ignored: $out"
-
-echo "== the bash-3.2 guard catches each construct, and never its own source"
-# Both halves. A guard that matched its own file would redden the commit that introduces
-# it, and would then be deleted rather than fixed; a guard that matches nothing is worse,
-# because it looks like protection.
-# The constructs live in a fixture rather than inline here, because spelling them in this
-# file would make the guard match its own proof — which is how the first version of this
-# reddened the repository on the commit that added it
-planted_count=0
-while IFS= read -r planted; do
-  [[ -z "$planted" || "$planted" == \#* ]] && continue
-  planted_count=$((planted_count + 1))
-  printf '%s\n' "$planted" >"$work/planted.sh"
-  grep -qE "$bash4_pattern" "$work/planted.sh" ||
-    fail "the bash-3.2 guard does not catch: $planted"
-done <tests/fixtures/bash4-constructs.sh
-((planted_count >= 8)) || fail "only $planted_count constructs were read from the fixture — the extractor is broken"
 
 echo "== the checker refuses rather than guessing when it is pointed at nothing"
 # Exit 2 and a usage message, rather than 1 and a finding: a missing file is not a bad
