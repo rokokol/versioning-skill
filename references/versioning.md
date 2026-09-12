@@ -28,6 +28,8 @@ One machine-readable place: a `VERSION` file at the repository root, holding the
 
 Two hand-kept copies of a version number disagree within a month, and the disagreement reaches a user: the tool reports one version while the package metadata claims another, and a bug report becomes unactionable. The point of the single file is not tidiness, it is that a mismatch becomes impossible rather than merely unlikely
 
+When the platform reads the version from its own manifest and fixes the tag's shape, the platform wins: an Obsidian plugin keeps the version in `package.json`, `npm version` derives `manifest.json` and `versions.json` from it through a `version` script, and its tags are the bare `X.Y.Z` Obsidian requires — the single source is still one file, only not `VERSION`
+
 ## The check that keeps them together
 
 [`check-changelog.sh`](../check-changelog.sh), taken into the repository by the ci skill's [vendoring cascade](https://github.com/rokokol/ci-skill/blob/master/references/bump-cascade.md#vendored-files), is the check — one step, rather than an inline grep beside it that would be a second, weaker copy of the same rule:
