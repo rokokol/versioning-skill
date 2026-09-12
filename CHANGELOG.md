@@ -2,6 +2,12 @@
 
 Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), dated rather than numbered, and with no `Unreleased` section — this repository is read at whatever revision you have checked out, so whatever is on the default branch is what every reader already has. The rule is this skill's own, in [references/changelog.md](references/changelog.md)
 
+## 2026-09-12
+
+### Added
+
+- a `macos` workflow and its badge, vendored from the [bash-best-practices](https://github.com/rokokol/bash-best-practices-skill) skill's template: `check-changelog.sh` claims the bash 3.2 macOS ships, and the behaviour half of the gate, `check.sh behaviour`, now runs under the real `/bin/bash` 3.2 on a macOS runner, with constructs planted that only a 3.2 rejects. The claim used to rest on a proxy grep alone
+
 ## 2026-09-11
 
 ### Changed

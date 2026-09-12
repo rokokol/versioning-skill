@@ -9,6 +9,7 @@
 ![Nix](https://img.shields.io/badge/Nix-flake-7EBAE4?style=flat&logo=nixos&logoColor=white)
 [![license](https://img.shields.io/badge/MIT-3DA639?style=flat)](LICENSE)
 [![ci](https://github.com/rokokol/versioning-skill/actions/workflows/build.yml/badge.svg)](https://github.com/rokokol/versioning-skill/actions/workflows/build.yml)
+[![macos](https://github.com/rokokol/versioning-skill/actions/workflows/macos.yml/badge.svg)](https://github.com/rokokol/versioning-skill/actions/workflows/macos.yml)
 
 </div>
 
@@ -69,6 +70,7 @@ It decides the mechanical half of the rules, and `--help` says what it checks. W
 
 ```sh
 nix develop -c ./check.sh
+/bin/bash ./check.sh behaviour   # under the bash macOS ships, as the macos workflow runs it
 ```
 
 Lints what the skill ships, runs the [ci](https://github.com/rokokol/ci-skill) skill's `check-skill.sh` — `SKILL.md` loads, every reference is reached from it by a chain of links, every link and heading anchor resolves, and each of those checks is proven able to fail on a planted defect — holds `check-changelog.sh` to its own header with the [bash-best-practices](https://github.com/rokokol/bash-best-practices-skill) skill's `check-sh.sh`, whose proxy grep for constructs newer than bash 3.2 replaced the one that lived here, and runs the checker against this repository's own changelog first, the first repository it has to be right about
