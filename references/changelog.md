@@ -48,7 +48,7 @@ The reliable way to write one: name what someone would have to change, or what s
 
 The two documents have different readers. The changelog reader is deciding whether to upgrade and has thirty seconds. The commit-body reader is chasing a decision and wants the argument that produced it
 
-So the entry states the change and its consequence, and the reasoning — what was tried, what broke, why this shape and not the other — stays in the commit body. Keep the wording close enough that `git log --grep` finds one from the other. Commit *message* conventions, including which trailers a change deserves, are the [ai-commit-trailers](https://github.com/rokokol/ai-commit-trailers-skill) skill's subject
+So the entry states the change and its consequence, and the reasoning — what was tried, what broke, why this shape and not the other — stays in the commit body. Keep the wording close enough that `git log --grep` finds one from the other
 
 A worked pair:
 
@@ -70,7 +70,7 @@ The same applies to a mistake in an old entry: correct it in a new one that says
 - **One heading per release or day.** A second heading for the same one splits its entries in two; the second one's bullets belong under the first
 - **One kind of heading** — versions or dates, not both, except for the transition above
 - **Group by kind** in Keep a Changelog's order — `### Added`, `### Changed`, `### Deprecated`, `### Removed`, `### Fixed`, `### Security` — and drop the groups that are empty rather than writing "none"
-- **No section in the README.** The changelog is its own file, linked, never summarised — a summary drifts, and then the two disagree in public. That rule belongs to [create-readme](https://github.com/rokokol/create-readme-skill)
+- **No section in the README.** The changelog is its own file, linked, never summarised — a summary drifts, and then the two disagree in public
 
 ## Reconstructing one after the fact
 
