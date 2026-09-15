@@ -13,10 +13,10 @@
 # Options may come before or after the changelog, and there is one changelog per run.
 #
 # A repository HAS a version when someone can install a particular one and report a bug
-# against it. Then its headings are `## [x.y.z]` and an `## Unreleased` section is where
-# work waits for the next release. A repository that is only ever read at whatever revision
-# is checked out has no version to be wrong about: its headings are dates, and `Unreleased`
-# is a state it can never be in, so the section would never close.
+# against it. Then its headings are `## [x.y.z] - YYYY-MM-DD` and an `## Unreleased` section
+# is where work waits for the next release. A repository that is only ever read at whatever
+# revision is checked out has no version to be wrong about: its headings are dates, and
+# `Unreleased` is a state it can never be in, so the section would never close.
 #
 # Exit: 0 clean, 1 findings printed, 2 a usage error.
 # Nothing here reaches the network. Needs bash 3.2 and POSIX tools only.
@@ -161,6 +161,10 @@ done < <(grep -n '^## ' "$changelog")
   exit 1
 }
 
+# In a variable rather than inline: a regex with spaces has to be quoted inline, and bash
+# 3.2 and later read a quoted pattern as a literal string
+release_tail='^ - [0-9]{4}-[0-9]{2}-[0-9]{2}$'
+
 seen_dated=""
 seen_release=""
 prev_date=""
@@ -183,12 +187,21 @@ for entry in "${headings[@]}"; do
       ;;
 
     '['*']'*)
-      # `## [x.y.z]`, optionally followed by a date
+      # `## [x.y.z] - YYYY-MM-DD`, Keep a Changelog's release heading
       v="${text#\[}"
       v="${v%%]*}"
       if [[ ! "$v" =~ ^[0-9]+\.[0-9]+\.[0-9]+([-+][0-9A-Za-z.-]+)?$ ]]; then
-        report "$line" "'$text' is not a version heading — expected ## [x.y.z]"
+        report "$line" "'$text' is not a version heading — expected ## [x.y.z] - YYYY-MM-DD"
         continue
+      fi
+      # Everything after the bracket used to go unread, so an em dash, a missing day and a
+      # day that does not exist all passed. No `continue` after either finding: the version
+      # itself is sound, so its order below is still worth checking
+      day="${text#*]}"
+      if [[ ! "$day" =~ $release_tail ]]; then
+        report "$line" "'$text' is not a release heading — expected ## [x.y.z] - YYYY-MM-DD, a hyphen-minus before the day it shipped"
+      elif ! real_day "${day# - }"; then
+        report "$line" "${day# - } is not a date — the heading has the shape of one, but no such day exists"
       fi
       [[ "$v" == "$version" ]] && found_current=1
       seen_release=1

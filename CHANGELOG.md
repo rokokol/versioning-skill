@@ -2,6 +2,12 @@
 
 Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), dated rather than numbered, and with no `Unreleased` section — this repository is read at whatever revision you have checked out, so whatever is on the default branch is what every reader already has. The rule is this skill's own, in [references/changelog.md](references/changelog.md)
 
+## 2026-09-15
+
+### Changed
+
+- `check-changelog.sh` reads a release heading whole: it must be Keep a Changelog's `## [x.y.z] - YYYY-MM-DD`, with a hyphen-minus and a day that exists. Everything after the bracket used to go unread, so an em dash, a missing date and 2026-02-30 all passed. The example in `references/changelog.md` used the em dash itself and now uses the hyphen; a repository that vendors the checker and dates no release, or dates one with an em dash, goes red on the next cascade
+
 ## 2026-09-12
 
 ### Added

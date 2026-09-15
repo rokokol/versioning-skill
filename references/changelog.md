@@ -13,7 +13,7 @@ A changelog is written for one person: someone deciding whether to move from the
 
 - what is waiting for the next release
 
-## [1.2.0] — 2026-09-05
+## [1.2.0] - 2026-09-05
 
 ### Changed
 

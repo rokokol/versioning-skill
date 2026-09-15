@@ -205,6 +205,12 @@ check_behaviour() {
   rejects duplicate-versions.md "[1.2.0] appears twice" -v tests/fixtures/VERSION-1.2.0
   # The heading's shape alone let a day February does not have through
   rejects impossible-date.md "2026-02-30 is not a date" -n
+  # A release heading is Keep a Changelog's `## [x.y.z] - YYYY-MM-DD`, whole. Everything
+  # after the bracket used to go unread, so an em dash, a missing day and a day that does
+  # not exist all passed
+  rejects release-em-dash.md "is not a release heading — expected ## [x.y.z] - YYYY-MM-DD" -v tests/fixtures/VERSION-1.2.0
+  rejects release-without-date.md "is not a release heading — expected ## [x.y.z] - YYYY-MM-DD" -v tests/fixtures/VERSION-1.2.0
+  rejects release-impossible-date.md "2026-02-30 is not a date" -v tests/fixtures/VERSION-1.2.0
   rejects unreleased-below-release.md "an Unreleased section below a release" -v tests/fixtures/VERSION-1.2.0
   # An option after the changelog is still an option. Parsing used to stop at the file, so a
   # trailing -v was dropped without a word and the file was checked as if it had no version
