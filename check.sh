@@ -1,22 +1,40 @@
 #!/usr/bin/env bash
-# The gate for this repository: lint what the skill ships, hold it to its own rules, and
-# prove that each of its checks can actually go red. A check that has never failed is a
-# decoration, and this skill hands its checker to other repositories.
-#
-# Nothing here touches the network, so it is safe on pull requests.
-#
-#   check.sh [lint|behaviour|all]
-#
-# Two halves, because they need different things. `lint` reads what the skill ships — the
-# scripts, the workflows, the docs and the vendored copies — with the linters the flake's
-# dev shell pins: actionlint, shellcheck, shfmt. `behaviour` runs check-changelog.sh
-# against this changelog and the fixtures and needs only bash and POSIX tools, so it runs
-# under the bash 3.2 macOS ships, which is what check-changelog.sh claims to run on. `all`,
-# the default, is both.
-#
-#   nix develop -c ./check.sh
-#   /bin/bash ./check.sh behaviour        # on a macOS runner, CHECK_BASH32=1
+# Needs bash 3.2 and POSIX tools only, so behaviour mode runs unchanged under the bash a
+# macOS runner has at /bin/bash. This skill hands check-changelog.sh to other
+# repositories, and this is the gate that proves it before it goes out
 set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+The gate for this repository: lints what the skill ships, holds it to its own rules, and
+proves that each of its checks can actually go red — a check that has never failed is a
+decoration
+
+  check.sh [lint|behaviour|all]
+
+Two halves, because they need different things
+
+  lint        reads what the skill ships — the scripts, the workflows, the docs and the
+              vendored copies — with the linters the flake's dev shell pins: actionlint,
+              shellcheck, shfmt
+  behaviour   runs check-changelog.sh against this changelog and the fixtures; needs only
+              bash and POSIX tools
+  all         both, and the default
+
+  nix develop -c ./check.sh
+  /bin/bash ./check.sh behaviour        # on a macOS runner, CHECK_BASH32=1
+
+Nothing here touches the network, so it is safe on pull requests.
+Exit 0 clean, 1 with `check: <what>` on the first finding, 2 a usage error
+EOF
+}
+
+case "${1:-}" in
+  -h | --help | help)
+    usage
+    exit 0
+    ;;
+esac
 
 HERE=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 cd "$HERE"

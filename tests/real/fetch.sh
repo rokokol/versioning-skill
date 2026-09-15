@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Reaches GitHub, so it is no part of the gate. Needs bash 3.2, POSIX tools and curl.
+# Needs bash 3.2, POSIX tools and curl
 set -euo pipefail
 
 usage() {
   cat <<'EOF'
-fetch.sh — rebuild the real-changelog corpus from the list in sources beside this file.
+fetch.sh — rebuild the real-changelog corpus from the list in sources beside this file
 
   fetch.sh [-u] [-o DIR]
 
@@ -20,7 +20,8 @@ MAX_LINES lines, and opens with a line naming where it came from
 
 Environment: MAX_LINES caps each excerpt (default 600); GITHUB_TOKEN, when set, lifts the
 rate limit on the GitHub API that -u asks.
-Exit 0 done, 1 when a fetch or a lookup fails, 2 on a usage error.
+Reaches GitHub, so it is no part of the gate.
+Exit 0 done, 1 when a fetch or a lookup fails, 2 on a usage error
 EOF
 }
 
