@@ -1,26 +1,28 @@
 #!/usr/bin/env bash
-# fetch.sh — rebuild the real-changelog corpus from the list in sources beside this file.
-#
-#   fetch.sh [-u] [-o DIR]
-#
-#   -u       first move each commit in sources to the latest one that touched its changelog
-#   -o DIR   where the excerpts go (default: this script's own directory)
-#
-# Each line of sources names an excerpt, a repository, a changelog in it and the commit it
-# is read at. The changelog is fetched at that commit and cut down to what the checker
-# reads: headings, the line above a setext underline, code fences and the hashed lines
-# inside them, and blank lines. Every other line becomes `- …`, a run of them one, so a
-# test carries the shape of a real changelog and not its prose. An excerpt ends after
-# MAX_LINES lines, and opens with a line naming where it came from
-#
-# Environment: MAX_LINES caps each excerpt (default 600); GITHUB_TOKEN, when set, lifts the
-# rate limit on the GitHub API that -u asks.
-# Exit 0 done, 1 when a fetch or a lookup fails, 2 on a usage error.
 # Reaches GitHub, so it is no part of the gate. Needs bash 3.2, POSIX tools and curl.
 set -euo pipefail
 
-# The whole header, however long it grows: up to the first line that is not a comment
-usage() { sed -n '2,/^[^#]/p' "${BASH_SOURCE[0]}" | sed '$d; s/^# \{0,1\}//'; }
+usage() {
+  cat <<'EOF'
+fetch.sh — rebuild the real-changelog corpus from the list in sources beside this file.
+
+  fetch.sh [-u] [-o DIR]
+
+  -u       first move each commit in sources to the latest one that touched its changelog
+  -o DIR   where the excerpts go (default: this script's own directory)
+
+Each line of sources names an excerpt, a repository, a changelog in it and the commit it
+is read at. The changelog is fetched at that commit and cut down to what the checker
+reads: headings, the line above a setext underline, code fences and the hashed lines
+inside them, and blank lines. Every other line becomes `- …`, a run of them one, so a
+test carries the shape of a real changelog and not its prose. An excerpt ends after
+MAX_LINES lines, and opens with a line naming where it came from
+
+Environment: MAX_LINES caps each excerpt (default 600); GITHUB_TOKEN, when set, lifts the
+rate limit on the GitHub API that -u asks.
+Exit 0 done, 1 when a fetch or a lookup fails, 2 on a usage error.
+EOF
+}
 
 fail() { # the thing asked about is wrong
   printf 'fetch.sh: %s\n' "$1" >&2

@@ -15,6 +15,7 @@ Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), d
 
 ### Changed
 
+- `check-changelog.sh` prints its help from a heredoc instead of reading its own header back, which under `bash <(…)` is the pipe bash reads the script from and printed nothing; the network and bash claims and the note on where the file comes from stay in the header comment and are no longer part of `--help`
 - `check-changelog.sh` reads a release heading whole: it must be Keep a Changelog's `## [x.y.z] - YYYY-MM-DD`, with a hyphen-minus and a day that exists. Everything after the bracket used to go unread, so an em dash, a missing date and 2026-02-30 all passed. The example in `references/changelog.md` used the em dash itself and now uses the hyphen; a repository that vendors the checker and dates no release, or dates one with an em dash, goes red on the next cascade
 - a release heading needs a date only when its template carries one, which most popular changelogs' templates do not; a heading that fits no template is reported as such, with `--help` named as the list
 - a numbered changelog with no `VERSION` beside it counts as versioned, its version kept in a manifest the checker does not read, so its `Unreleased` section is no longer a finding; `-n` still says otherwise
