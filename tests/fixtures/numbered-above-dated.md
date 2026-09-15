@@ -1,9 +1,9 @@
 # Changelog
 
-## 2026-09-05
+## [1.0.0] - 2026-09-05
 
-- work from after this repository stopped shipping versions
+- a release above a dated entry, as if the repository had started shipping versions and gone on dating its changelog below them
 
-## [1.0.0] - 2026-08-01
+## 2026-08-01
 
-- the last release it ever cut
+- work from before, dated, which belongs above every numbered heading or nowhere

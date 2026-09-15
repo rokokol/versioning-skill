@@ -223,6 +223,11 @@ check_behaviour() {
   # ordinary history a project that ships candidates has — was reported as out of order
   changelog -v tests/fixtures/VERSION-2.0.0 tests/fixtures/good-release-above-its-candidates.md ||
     fail "a release above its own candidates was called out of order — prerelease precedence is wrong"
+  # Dated entries above the numbered history, where a repository stopped shipping versions.
+  # The mixture rule used to fire on exactly this and let its reverse through, and the
+  # fixture meant to catch the reverse held the good order under the bad one's name
+  changelog -n tests/fixtures/good-stopped-shipping.md ||
+    fail "dated entries above the last numbered release were refused — the one mixture that means anything"
 
   echo "== it accepts the heading templates popular changelogs write, each one throughout a file"
   # One fixture per shape the help's table names, since the table is what the checker reads

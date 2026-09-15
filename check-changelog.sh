@@ -390,7 +390,7 @@ level=${level:-2}
 versioned=""
 [[ -n "$version" || (-z "$no_version" && -n "$has_numbered") ]] && versioned=1
 
-seen_dated=""
+seen_numbered=""
 seen_release=""
 prev_date=""
 prev_day=""
@@ -420,12 +420,17 @@ for entry in "${headings[@]}"; do
       continue
     fi
     releases=$((releases + 1))
-    seen_dated=1
     seen_release=1
     if ((t_gd[hit])); then iso="${BASH_REMATCH[${t_gd[$hit]}]}"; else long_day "${BASH_REMATCH[${t_gl[$hit]}]}"; fi
     if ! real_day "$iso"; then
       report "$line" "$text is not a date — the heading has the shape of one, but no such day exists"
       continue
+    fi
+    # Dated entries go above the numbered history, never below it. Asked at the dated heading,
+    # since only a dated one below a release is out of place: the rule used to be asked at
+    # the release, and fired on the good mixture while it let the reverse through
+    if [[ -n "$seen_numbered" ]]; then
+      report "$line" "a numbered heading above a dated one — dated entries belong on top, where a repository that stopped shipping versions keeps its newer work"
     fi
     if [[ -n "$version" ]]; then
       report "$line" "a dated heading in a repository that ships version $version — a shipped artifact's changelog is numbered, so a reader can match an entry to what they installed"
@@ -463,9 +468,7 @@ for entry in "${headings[@]}"; do
     fi
     [[ "$v" == "$version" ]] && found_current=1
     seen_release=1
-    if [[ -n "$seen_dated" ]]; then
-      report "$line" "a numbered heading above a dated one — dated entries belong on top, where a repository that stopped shipping versions keeps its newer work"
-    fi
+    seen_numbered=1
     if [[ "$v" == "$prev_version" ]]; then
       report "$line" "[$v] appears twice — one heading per release, and the second one's entries belong under the first"
     elif [[ -n "$prev_version" ]] && ! version_lt "$v" "$prev_version"; then

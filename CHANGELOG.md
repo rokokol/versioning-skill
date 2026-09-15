@@ -19,6 +19,10 @@ Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), d
 - a release heading needs a date only when its template carries one, which most popular changelogs' templates do not; a heading that fits no template is reported as such, with `--help` named as the list
 - a numbered changelog with no `VERSION` beside it counts as versioned, its version kept in a manifest the checker does not read, so its `Unreleased` section is no longer a finding; `-n` still says otherwise
 
+### Fixed
+
+- the rule on mixing dated and numbered headings fired on dated entries above the numbered history, the one mixture the skill calls meaningful, and let the reverse through; its fixture held the good order under the bad one's name
+
 ## 2026-09-12
 
 ### Added
