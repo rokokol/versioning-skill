@@ -17,6 +17,8 @@ A version is a promise: someone installed exactly this one, and can report a bug
 
 Both go wrong the same way, by claiming more than the repository can back: a version badge on something with no releases, an `Unreleased` section that never closes, an entry describing a refactor nobody outside could observe, a heading nobody can match to anything they installed. This skill is the set of rules that keep the claim true, plus a checker that decides the half a script can decide
 
+Where the checker and its tools can fool whoever maintains them is in [PITFALLS.md](PITFALLS.md)
+
 ## Contents
 
 - [Install](#install)
@@ -62,9 +64,10 @@ They are in [SKILL.md](SKILL.md#the-rules), one line each with a link to the ref
 check-changelog.sh                    # finds VERSION beside CHANGELOG.md by itself
 check-changelog.sh -n                 # assert this repository has no version
 check-changelog.sh -v path/to/VERSION path/to/CHANGELOG.md
+check-changelog.sh -t '## [{version}] - {date}'   # pin one heading template
 ```
 
-It decides the mechanical half of the rules, and `--help` says what it checks. What it cannot decide is whether an entry deserved to exist, which is the half that needs a person
+It decides the mechanical half of the rules, and `--help` says what it checks. Without `-t` it takes any of the heading templates popular changelogs write, as long as one changelog keeps to one; `--help` lists them. What it cannot decide is whether an entry deserved to exist, which is the half that needs a person
 
 ## Tests
 
@@ -75,7 +78,7 @@ nix develop -c ./check.sh
 
 Lints what the skill ships, runs the [ci](https://github.com/rokokol/ci-skill) skill's `check-skill.sh` — `SKILL.md` loads, every reference is reached from it by a chain of links, every link and heading anchor resolves, and each of those checks is proven able to fail on a planted defect — holds `check-changelog.sh` to its own header with the [bash-best-practices](https://github.com/rokokol/bash-best-practices-skill) skill's `check-sh.sh`, whose proxy grep for constructs newer than bash 3.2 replaced the one that lived here, and runs the checker against this repository's own changelog first, the first repository it has to be right about
 
-Then it proves the checker can fail, one fixture per rule, each of which must be rejected **with that rule's own message**: a checker whose findings all come from one over-broad branch reads as thorough while testing one thing. The correct fixtures, in both shapes, must come back clean, because a checker that cries wolf gets switched off
+Then it proves the checker can fail, one fixture per rule, each of which must be rejected **with that rule's own message**: a checker whose findings all come from one over-broad branch reads as thorough while testing one thing. The correct fixtures, in every template, must come back clean, because a checker that cries wolf gets switched off. Then it runs the checker on the real changelogs in `tests/real` and holds each to what `tests/real/sources` expects of it, since fixtures written for one rule each say little about what the rules meet out there. A weekly `corpus-sync` workflow moves those pins to each changelog's latest commit and lands them on green; red leaves its branch for a person, because a changelog out there has changed shape. Where GNU date exists, it is the oracle for the checker's own calendar, on every day of the years the leap rules split
 
 ## Layout
 
@@ -83,12 +86,14 @@ Then it proves the checker can fail, one fixture per rule, each of which must be
 SKILL.md              the rules an agent reads
 check-changelog.sh    the checker, which takes any changelog
 references/           versioning (the VERSION file), changelog (the culture), release (the ritual)
+PITFALLS.md           traps in the checker and its tools that pass for success
 check.sh              the self-testing gate
 check-skill.sh        the gate every skill repository shares, vendored from the ci skill
 check-pins.sh         the pin guard for the workflows, vendored from the ci skill
 check-sh.sh           holds check-changelog.sh's help to its code and its bash 3.2 claim to a proxy grep, vendored from the bash-best-practices skill
 vendor-sync.sh        keeps the vendored copies byte-equal to their source, vendored from the ci skill
 tests/fixtures/       one known-bad changelog per rule, plus the good ones
+tests/real/           popular projects' changelogs at pinned commits, cut to their headings by fetch.sh
 ```
 
 What gates a pull request, how a workflow is pinned and how badges are earned belongs to the [ci](https://github.com/rokokol/ci-skill) skill; what may go in a commit *message* to [ai-commit-trailers](https://github.com/rokokol/ai-commit-trailers-skill)

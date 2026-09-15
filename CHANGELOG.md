@@ -4,9 +4,20 @@ Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), d
 
 ## 2026-09-15
 
+### Added
+
+- `check-changelog.sh` takes the heading templates popular changelogs write, not Keep a Changelog's alone: release-please's compare link in the brackets, `1.2.3 (2026-09-05)`, a bare version with or without a `v`, a date in words, full or cut to `Jan`, that it reads and checks, `Version 1.2.3`, two-part calendar versions and the `[YANKED]` marker. The table is in its `--help`, which the checker reads back, so the two cannot disagree
+- one template per changelog: the first release heading picks it, and a release in another is a finding. `-t TEMPLATE` pins one in a repository's gate
+- a release may sit at any level, as conventional-changelog writes a major, a minor and a patch at `#`, `##` and `###`; a heading that follows no template is a finding at the highest level a release sits at and a section below it. Underlined headings are read, HTML tags such as vite's `<small>` are read past, and nothing inside a code fence counts as a heading
+- a release is out of order only when it is newer than the one above it by version and, where its template carries a day, by day as well, so a changelog keeping several release lines passes whether it interleaves them by day, as angular does, or keeps them in blocks by version, as grafana, react and tokio do
+- the gate runs the checker on excerpts of popular projects' changelogs in `tests/real`, pinned to commits in `tests/real/sources`, cut to their headings by `tests/real/fetch.sh` and moved to each changelog's latest commit on green by a weekly `corpus-sync` workflow, and holds its calendar to GNU date's on every day of 1900, 2000, 2024, 2026 and 2100 wherever GNU date exists
+- `PITFALLS.md`, starting with a whole changelog moved to another template, which autodetection lets through
+
 ### Changed
 
 - `check-changelog.sh` reads a release heading whole: it must be Keep a Changelog's `## [x.y.z] - YYYY-MM-DD`, with a hyphen-minus and a day that exists. Everything after the bracket used to go unread, so an em dash, a missing date and 2026-02-30 all passed. The example in `references/changelog.md` used the em dash itself and now uses the hyphen; a repository that vendors the checker and dates no release, or dates one with an em dash, goes red on the next cascade
+- a release heading needs a date only when its template carries one, which most popular changelogs' templates do not; a heading that fits no template is reported as such, with `--help` named as the list
+- a numbered changelog with no `VERSION` beside it counts as versioned, its version kept in a manifest the checker does not read, so its `Unreleased` section is no longer a finding; `-n` still says otherwise
 
 ## 2026-09-12
 

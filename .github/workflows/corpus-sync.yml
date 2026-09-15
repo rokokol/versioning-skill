@@ -1,0 +1,89 @@
+---
+name: corpus-sync
+
+# tests/real holds popular projects' changelogs, each pinned to a commit in
+# tests/real/sources. This moves every pin to the latest commit that touched its changelog
+# weekly, cuts the excerpts again, verifies the result by running this repository's real
+# build workflow against it, and lands it only on green. Red leaves the dated branch
+# standing: a changelog out there has grown a shape the checker does not take, or lost or
+# gained a finding sources expects, and a person decides which. The shape is
+# vendor-sync.yml's, but not its script: vendor-sync.sh keeps byte-equal copies, and an
+# excerpt is a cut, never a copy. How the cascade works: references/bump-cascade.md in
+# https://github.com/rokokol/ci-skill
+on:
+  schedule:
+    # An hour after vendor-sync, so the excerpts meet the week's checker
+    - cron: "0 5 * * 1"
+  workflow_dispatch:
+
+# Two runs would push the same branch from different bases
+concurrency: corpus-sync
+
+permissions:
+  contents: read
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    outputs:
+      branch: ${{ steps.push.outputs.branch }}
+      moved: ${{ steps.push.outputs.moved }}
+    steps:
+      # Full history: pushing from a shallow clone is refused
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - id: push
+        env:
+          # Lifts the API's rate limit for the lookups -u makes
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          ./tests/real/fetch.sh -u
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "every changelog in the corpus is already at its latest commit"
+            echo "moved=0" >>"$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          branch=corpus/$(date -u +%Y-%m-%d)
+          git switch -c "$branch"
+          git add -A
+          git commit -qm "take the real changelogs' current revisions"
+          git push -f origin "$branch"
+          echo "branch=$branch" >>"$GITHUB_OUTPUT"
+          echo "moved=1" >>"$GITHUB_OUTPUT"
+
+  # The whole point of the temp branch: a reusable workflow checks out a ref, so the new
+  # excerpts have to exist somewhere before the real checks can see them
+  verify:
+    needs: bump
+    if: needs.bump.outputs.moved == '1'
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ needs.bump.outputs.branch }}
+
+  # Red leaves the branch alone, with the excerpts on it, so the failure can be looked at
+  land:
+    needs: [bump, verify]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.bump.outputs.branch }}
+          fetch-depth: 0
+      # GITHUB_REF_NAME is the branch the run started on: the default branch for the weekly
+      # schedule, whose event carries no repository payload to read the default branch from
+      - name: fast-forward the branch the run started on onto the verified tree
+        env:
+          BRANCH: ${{ needs.bump.outputs.branch }}
+        run: |
+          git push origin "HEAD:$GITHUB_REF_NAME"
+          git push origin --delete "$BRANCH"

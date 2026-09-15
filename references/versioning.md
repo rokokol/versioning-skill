@@ -39,7 +39,7 @@ When the platform reads the version from its own manifest and fixes the tag's sh
   run: ./check-changelog.sh
 ```
 
-It finds `VERSION` beside `CHANGELOG.md` by itself, requires a `## [x.y.z]` heading for it, and checks the heading shapes and their order along the way:
+It finds `VERSION` beside `CHANGELOG.md` by itself, requires a release heading for it, and checks the heading shapes and their order along the way:
 
 ```sh
 check-changelog.sh              # finds VERSION beside CHANGELOG.md by itself
