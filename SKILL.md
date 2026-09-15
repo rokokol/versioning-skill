@@ -1,6 +1,6 @@
 ---
 name: versioning
-description: "What it is — what a repository says about itself over time: whether it has a version at all, where that version lives, what its changelog looks like in either case, what deserves an entry, and the ritual that cuts a release. Use when writing or reviewing a CHANGELOG entry, adding or removing a VERSION file, deciding whether a repo should carry a version badge, cutting a release or a git tag, or setting either up in a new repo. Triggers: changelog, CHANGELOG.md, version, VERSION, semver, release, git tag, release tag, bump, Unreleased, чейнджлог, версия, релиз, git-тег, тег релиза, что писать в changelog, поднять версию."
+description: "What it is — what a repository says about itself over time: whether it has a version at all, where that version lives, what its changelog looks like in either case, what deserves an entry, and the ritual that cuts a release. Use when writing or reviewing a CHANGELOG entry, adding or removing a VERSION file, deciding whether a repo should carry a version badge, cutting a release or a git tag, or setting either up in a new repo. Triggers: changelog, CHANGELOG.md, version, VERSION file, semver, release, git tag, release tag, bump, Unreleased, чейнджлог, версия, релиз, git-тег, тег релиза, что писать в changelog, поднять версию."
 license: MIT
 ---
 

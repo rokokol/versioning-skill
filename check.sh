@@ -100,8 +100,9 @@ check_lint() {
     fail "the full-stop check missed a full stop, bare or behind markup"
 
   echo "== SKILL.md loads, every reference is reachable, and every link and anchor resolves"
-  # The one gate every skill repository shares, copied verbatim from the ci skill. It proves
-  # each of its own checks able to fail on every run, so nothing here has to
+  # The one gate every skill repository shares, vendored from the skill-authoring skill
+  # (https://github.com/rokokol/skill-authoring-skill). It proves each of its own checks
+  # able to fail on every run, so nothing here has to
   ./check-skill.sh -n "$skill_name" .
 }
 

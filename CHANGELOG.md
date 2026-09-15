@@ -18,6 +18,8 @@ Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), d
 - `check-changelog.sh` reads a release heading whole: it must be Keep a Changelog's `## [x.y.z] - YYYY-MM-DD`, with a hyphen-minus and a day that exists. Everything after the bracket used to go unread, so an em dash, a missing date and 2026-02-30 all passed. The example in `references/changelog.md` used the em dash itself and now uses the hyphen; a repository that vendors the checker and dates no release, or dates one with an em dash, goes red on the next cascade
 - a release heading needs a date only when its template carries one, which most popular changelogs' templates do not; a heading that fits no template is reported as such, with `--help` named as the list
 - a numbered changelog with no `VERSION` beside it counts as versioned, its version kept in a manifest the checker does not read, so its `Unreleased` section is no longer a finding; `-n` still says otherwise
+- `check-skill.sh` is vendored from the [skill-authoring](https://github.com/rokokol/skill-authoring-skill) skill, where the rules it checks now live, and reports the rules a skill can break without breaking as warnings on stdout, the exit code unchanged: a `Layout` or install section in runtime, `used to`, a `path:line` citation, a link to a sibling skill, a concrete model id, and the rest its `--help` lists
+- the description's triggers say `VERSION file` where `VERSION` stood beside `version`, the same word twice to a matcher that reads by meaning
 
 ### Fixed
 

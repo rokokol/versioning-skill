@@ -76,7 +76,7 @@ nix develop -c ./check.sh
 /bin/bash ./check.sh behaviour   # under the bash macOS ships, as the macos workflow runs it
 ```
 
-Lints what the skill ships, runs the [ci](https://github.com/rokokol/ci-skill) skill's `check-skill.sh` — `SKILL.md` loads, every reference is reached from it by a chain of links, every link and heading anchor resolves, and each of those checks is proven able to fail on a planted defect — holds `check-changelog.sh` to its own header with the [bash-best-practices](https://github.com/rokokol/bash-best-practices-skill) skill's `check-sh.sh`, whose proxy grep for constructs newer than bash 3.2 replaced the one that lived here, and runs the checker against this repository's own changelog first, the first repository it has to be right about
+Lints what the skill ships, runs the [skill-authoring](https://github.com/rokokol/skill-authoring-skill) skill's `check-skill.sh` — `SKILL.md` loads, every reference is reached from it by a chain of links, every link and heading anchor resolves, and each of those checks is proven able to fail on a planted defect — holds `check-changelog.sh` to its own header with the [bash-best-practices](https://github.com/rokokol/bash-best-practices-skill) skill's `check-sh.sh`, whose proxy grep for constructs newer than bash 3.2 replaced the one that lived here, and runs the checker against this repository's own changelog first, the first repository it has to be right about
 
 Then it proves the checker can fail, one fixture per rule, each of which must be rejected **with that rule's own message**: a checker whose findings all come from one over-broad branch reads as thorough while testing one thing. The correct fixtures, in every template, must come back clean, because a checker that cries wolf gets switched off. Then it runs the checker on the real changelogs in `tests/real` and holds each to what `tests/real/sources` expects of it, since fixtures written for one rule each say little about what the rules meet out there. A weekly `corpus-sync` workflow moves those pins to each changelog's latest commit and lands them on green; red leaves its branch for a person, because a changelog out there has changed shape. Where GNU date exists, it is the oracle for the checker's own calendar, on every day of the years the leap rules split
 
@@ -88,7 +88,7 @@ check-changelog.sh    the checker, which takes any changelog
 references/           versioning (the VERSION file), changelog (the culture), release (the ritual)
 PITFALLS.md           traps in the checker and its tools that pass for success
 check.sh              the self-testing gate
-check-skill.sh        the gate every skill repository shares, vendored from the ci skill
+check-skill.sh        the gate every skill repository shares, vendored from the skill-authoring skill
 check-pins.sh         the pin guard for the workflows, vendored from the ci skill
 check-sh.sh           holds check-changelog.sh's help to its code and its bash 3.2 claim to a proxy grep, vendored from the bash-best-practices skill
 vendor-sync.sh        keeps the vendored copies byte-equal to their source, vendored from the ci skill
