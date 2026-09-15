@@ -228,7 +228,13 @@ check_behaviour() {
   # The mixture rule used to fire on exactly this and let its reverse through, and the
   # fixture meant to catch the reverse held the good order under the bad one's name
   changelog -n tests/fixtures/good-stopped-shipping.md ||
-    fail "dated entries above the last numbered release were refused — the one mixture that means anything"
+    fail "dated entries above the last numbered release were refused, where a repository stopped shipping versions"
+  # And the other way round, where a repository started shipping them: its dated history stays
+  # below the first release rather than being rewritten, VERSION beside it or not
+  changelog -v tests/fixtures/VERSION-1.2.0 tests/fixtures/good-started-shipping.md ||
+    fail "dated history below the first numbered release was refused, where a repository started shipping versions"
+  changelog tests/fixtures/good-started-shipping.md ||
+    fail "dated history below the first numbered release was refused with no VERSION beside it"
 
   echo "== it accepts the heading templates popular changelogs write, each one throughout a file"
   # One fixture per shape the help's table names, since the table is what the checker reads
@@ -277,6 +283,8 @@ check_behaviour() {
   rejects versions-double-digit.md "[1.10.0] is not older than the [1.9.0]" -n
   rejects candidates-out-of-order.md "[2.0.0-rc.2] is not older than the [2.0.0-rc.1]" -n
   rejects numbered-above-dated.md "a numbered heading above a dated one" -n
+  # The two kinds meet once, where versions started or stopped; a second meeting is a mix
+  rejects interleaved-kinds.md "the two kinds meet once"
   rejects nonsense-heading.md "matches none of the heading templates" -n
   rejects not-a-version-heading.md "matches none of the heading templates" -n
   rejects no-headings.md "no release headings at all" -n

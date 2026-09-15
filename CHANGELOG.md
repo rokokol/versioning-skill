@@ -20,6 +20,7 @@ Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), d
 - a numbered changelog with no `VERSION` beside it counts as versioned, its version kept in a manifest the checker does not read, so its `Unreleased` section is no longer a finding; `-n` still says otherwise
 - `check-skill.sh` is vendored from the [skill-authoring](https://github.com/rokokol/skill-authoring-skill) skill, where the rules it checks now live, and reports the rules a skill can break without breaking as warnings on stdout, the exit code unchanged: a `Layout` or install section in runtime, `used to`, a `path:line` citation, a link to a sibling skill, a concrete model id, and the rest its `--help` lists
 - the description's triggers say `VERSION file` where `VERSION` stood beside `version`, the same word twice to a matcher that reads by meaning
+- dated and numbered headings may meet once in either order: numbered above dated too, where a repository started shipping versions and kept its dated history below its first release. Only the two interleaved is a finding, and a `VERSION` file puts the releases on top while `-n` puts the dated entries there
 
 ### Fixed
 

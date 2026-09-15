@@ -34,7 +34,7 @@ The dated shape has **no `Unreleased` section**, and the reason is not stylistic
 
 In the numbered shape `Unreleased` sits on top, above every release. Below one it is a pile of unshipped work filed under something that already shipped, where the reader deciding whether to upgrade will not look
 
-Where a repository stops shipping versions, its dated entries sit **above** its numbered history. That is the only mixture that means anything, and it reads correctly: newest first, and the point where the promise changed is visible
+The two shapes meet at most once, where the promise changed. A repository that stops shipping versions keeps its dated entries **above** its numbered history; one that starts keeps its dated history **below** its first release rather than rewriting it. Either reads correctly: newest first, and the point where the promise changed is visible. What means nothing is the two interleaved, a dated entry between two releases or a release between two dated entries, since no change of promise happens twice back and forth
 
 ## What earns an entry
 
