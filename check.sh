@@ -388,7 +388,8 @@ check_behaviour() {
   # A second file used to be ignored, so a gate given two changelogs checked one of them
   refuses "two changelogs at once" "one changelog at a time" -n tests/fixtures/good-dated.md tests/fixtures/good-dated.md
   # The help is the header, whole: it used to stop before the exit codes it promises
-  changelog --help | grep -q '^Exit: 0 clean' || fail "--help stops before the exit codes"
+  # <<< rather than a pipe: `grep -q` stops at its match and the help would die of SIGPIPE
+  grep -q '^Exit: 0 clean' <<<"$(changelog --help)" || fail "--help stops before the exit codes"
 
   # check-changelog.sh claims bash 3.2, and a grep for newer syntax is a proxy; the
   # mechanism is this half under the real 3.2, with two constructs planted that only a 3.2
