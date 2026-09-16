@@ -79,7 +79,10 @@ done
 
 check_lint() {
   echo "== the scripts parse and lint"
-  for s in "${scripts[@]}"; do bash -n "$s"; done
+  # No `bash -n` loop: check-sh.sh parses every script it is handed, and it is handed this
+  # repository's own ones below. The vendored copies are byte-equal to sources that parse
+  # them there, which vendor-sync.sh and the lock guarantee, so parsing them again here
+  # would prove nothing about the same bytes
   shellcheck "${scripts[@]}"
   shfmt -d -i 2 -ci "${scripts[@]}"
 
@@ -218,6 +221,9 @@ check_behaviour() {
   # live here, now labelled as the proxy it is, with the proof being this half under 3.2. It
   # plants its own defects on every run, so nothing here has to prove it can fail
   checker check-changelog.sh
+  # The gate itself, for its parse and its bash 3.2 claim: it has no dispatcher and no
+  # flags, so the checker reads it by the proxy alone
+  checker check.sh
   checker tests/real/fetch.sh
 
   echo "== this repository's own changelog obeys the rules it hands out"

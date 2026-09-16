@@ -2,6 +2,12 @@
 
 Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), dated rather than numbered, and with no `Unreleased` section — this repository is read at whatever revision you have checked out, so whatever is on the default branch is what every reader already has. The rule is this skill's own, in [references/changelog.md](references/changelog.md)
 
+## 2026-09-16
+
+### Changed
+
+- `check.sh` no longer parses every script with its own `bash -n` loop: `check-sh.sh` reports a script it cannot parse, and the gate hands it `check-changelog.sh`, `tests/real/fetch.sh` and itself. The vendored copies are byte-equal to sources that parse them there, which `vendor-sync.sh` and the lock guarantee
+
 ## 2026-09-15
 
 ### Added
