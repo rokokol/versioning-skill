@@ -2,9 +2,9 @@
 # vendor-sync.sh, one per line: LOCAL OWNER/REPO PATH COMMIT BLOB [manual]. Never edit a
 # copy in place: change it at its source and let the weekly cascade bring it back. How it
 # works: references/bump-cascade.md in https://github.com/rokokol/ci-skill
-vendor-sync.sh rokokol/ci-skill templates/vendor-sync.sh 974454004b06e09b0af67485f0781eb87afc3c11 65748845239e8495855de9e11fb36dd633c372c6
+vendor-sync.sh rokokol/ci-skill templates/vendor-sync.sh 9760709ce4a6879d53029d7ca984d2af64516c38 722bf9770b87fb850c91d845475a5bb64640fb3c
 check-pins.sh rokokol/ci-skill templates/check-pins.sh 65a870043a54563fe72302de56b9d06ce932adbd f44a172369006a0aae79f4a4f0f1d6e6afde2203
 .github/workflows/vendor-sync.yml rokokol/ci-skill templates/github/workflows/vendor-sync.yml d55020ab3ca780ea6299336d923b8a3fcb8f491d a5bde77f98d55a43b2c993f4c96a952e0b68010d manual
-check-sh.sh rokokol/bash-best-practices-skill check-sh.sh 6a6e000c1cf73d3cc01620c075a75fef681fb32e dfcb3826642e10a91add2a34eba00b2825f5b76a
+check-sh.sh rokokol/bash-best-practices-skill check-sh.sh 35c5ff47158e6520aba34fff2992a71e052da4c6 e3789ea4838d97747a4f8dd600ab0b4001000d03
 .github/workflows/macos.yml rokokol/bash-best-practices-skill templates/github/workflows/macos.yml 7a00a5e76ff757985a95e8fd2167209365148c6e aa7a3b768209f56c3afa78a4fb9d0ed560d4c678 manual
-check-skill.sh rokokol/skill-authoring-skill check-skill.sh 1e254e5d132021cbc576bc2dd9a3356dbf377165 5f716f5461af496dd66837427b1c2f40c78537fd
+check-skill.sh rokokol/skill-authoring-skill check-skill.sh 27bb4235a1337399b823e7112fd7f1560b0303cc 7b0c508e276df26bfc8768191229c81c63542083
