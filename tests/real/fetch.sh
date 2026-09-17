@@ -19,8 +19,8 @@ test carries the shape of a real changelog and not its prose. An excerpt ends af
 MAX_LINES lines, and opens with a line naming where it came from
 
 Environment: MAX_LINES caps each excerpt (default 600); GITHUB_TOKEN, when set, lifts the
-rate limit on the GitHub API that -u asks.
-Reaches GitHub, so it is no part of the gate.
+rate limit on the GitHub API that -u asks
+Reaches GitHub, so it is no part of the gate
 Exit 0 done, 1 when a fetch or a lookup fails, 2 on a usage error
 EOF
 }

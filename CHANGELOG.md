@@ -2,6 +2,13 @@
 
 Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), dated rather than numbered, and with no `Unreleased` section — this repository is read at whatever revision you have checked out, so whatever is on the default branch is what every reader already has. The rule is this skill's own, in [references/changelog.md](references/changelog.md)
 
+## 2026-09-17
+
+### Fixed
+
+- `check-changelog.sh`'s header opened with a bare predicate, `Never edits its copy in place: a fix belongs in rokokol/versioning-skill`, whose subject had moved into the help. The header now names the cascade whole, and the help no longer repeats where the file comes from — that fact is the header's, since it changes nothing a caller types, expects or where they run the script
+- the network line of `check-changelog.sh --help` and two lines of `tests/real/fetch.sh --help` ended their paragraph with a full stop, where the house rule leaves the last line bare
+
 ## 2026-09-16
 
 ### Changed
