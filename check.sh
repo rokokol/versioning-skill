@@ -54,6 +54,10 @@ fail() {
 # ships, while `env bash` would find Homebrew's 5
 changelog() { "$BASH" "$HERE/check-changelog.sh" "$@"; }
 checker() { "$BASH" "$HERE/check-sh.sh" "$@"; }
+# The same copy under the same bash and tools proves itself once per run — the self-test is
+# 5 s of a 5.1 s call — so every call after the first runs the checks alone, which is what
+# CHECK_SH_NESTED=1 is documented for
+checks() { CHECK_SH_NESTED=1 checker "$@"; }
 
 # With a template, so a crashed run's leftovers say whose they are
 work=$(mktemp -d "${TMPDIR:-/tmp}/check.XXXXXX")
@@ -219,12 +223,12 @@ check_behaviour() {
   # parser and exit codes out of the source and holds the help to them, and greps the
   # script for constructs newer than the bash 3.2 its header claims — the grep that used to
   # live here, now labelled as the proxy it is, with the proof being this half under 3.2. It
-  # plants its own defects on every run, so nothing here has to prove it can fail
+  # plants its own defects on this first call, so nothing here has to prove it can fail
   checker check-changelog.sh
   # The gate itself, for its parse and its bash 3.2 claim: it has no dispatcher and no
   # flags, so the checker reads it by the proxy alone
-  checker check.sh
-  checker tests/real/fetch.sh
+  checks check.sh
+  checks tests/real/fetch.sh
 
   echo "== this repository's own changelog obeys the rules it hands out"
   # The first repository the checker has to be right about is this one
