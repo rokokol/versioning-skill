@@ -24,7 +24,7 @@ Two halves, because they need different things
   nix develop -c ./check.sh
   /bin/bash ./check.sh behaviour        # on a macOS runner, CHECK_BASH32=1
 
-Nothing here touches the network, so it is safe on pull requests.
+Nothing here touches the network, so it is safe on pull requests
 Exit 0 clean, 1 with `check: <what>` on the first finding, 2 a usage error
 EOF
 }
