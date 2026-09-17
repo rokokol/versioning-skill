@@ -2,6 +2,7 @@
 # Taken from rokokol/versioning-skill through the ci skill's vendoring cascade
 # (references/bump-cascade.md in https://github.com/rokokol/ci-skill): a copy is never
 # edited in place, a fix belongs there. Needs bash 3.2 and POSIX tools only
+# No -e: every finding is printed and counted, and a non-zero grep is data, not a failure
 set -uo pipefail
 
 usage() {
