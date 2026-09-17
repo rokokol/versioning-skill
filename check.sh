@@ -51,7 +51,8 @@ fail() {
 
 # Every script below runs under the bash running this gate, not under whatever bash its
 # shebang finds: on a macOS runner the gate is started as /bin/bash to prove the 3.2 macOS
-# ships, while `env bash` would find Homebrew's 5
+# ships, while `env bash` finds whichever bash is first on PATH — Homebrew's 5 on a Mac
+# that has one
 changelog() { "$BASH" "$HERE/check-changelog.sh" "$@"; }
 checker() { "$BASH" "$HERE/check-sh.sh" "$@"; }
 # The same copy under the same bash and tools proves itself once per run — the self-test is
