@@ -255,11 +255,14 @@ t_body=() t_re=() t_gv=() t_gd=() t_gl=()
 while IFS= read -r body; do
   compile "$body"
   t_body+=("$body") t_re+=("$re") t_gv+=("$g_version") t_gd+=("$g_date") t_gl+=("$g_long")
-done < <(usage | awk '
+  # <<< and not `usage | awk`: the program exits once the table is read, and a producer
+  # whose reader stops early dies of SIGPIPE, which pipefail makes the status of a
+  # pipeline that did its job
+done < <(awk '
   /^Templates, and who writes them:$/ { f = 1; next }
   f && /^$/ { if (seen) exit; next }
   f { seen = 1; sub(/^  /, ""); split($0, cell, /  +/); print cell[1] }
-')
+' <<<"$(usage)")
 ((${#t_body[@]} > 0)) || die "no templates in the help — the table under 'Templates, and who writes them:' is gone"
 
 # Which template of the table a heading follows, numbered rows only or dated rows only: its

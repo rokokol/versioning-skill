@@ -4,6 +4,10 @@ Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), d
 
 ## 2026-09-18
 
+### Fixed
+
+- `check-changelog.sh` read its own help through `usage | awk`, and that awk program exits once it has the template table. A producer whose reader stops early dies of SIGPIPE, and `pipefail` makes that the status of a pipeline that did its job, so the checker could fail with every template present. The help reaches awk through `<<<` now, which has no producer to kill
+
 ### Added
 
 - the dev shell carries `jq`, ahead of the checker that will need it: the vendored `check-sh.sh` is moving off its awk lexer to reading the script it is given as a tree, out of `shfmt --to-json`, with jq flattening that tree into the rows its rules read. It lands before the cascade delivers that checker, so a new copy does not arrive to a missing tool and a red verify
