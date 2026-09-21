@@ -1,4 +1,79 @@
-Excerpt of CHANGELOG.md from prettier/prettier at 8f0c95057cc91d5836409466cd9d9af3bb901e84, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from prettier/prettier at 4f2ab6765d7cb29408a2abdac75d023d64d44107, cut by tests/real/fetch.sh
+
+# 3.9.8
+
+- …
+
+#### Markdown: Don't let Liquid objects interrupt paragraphs ([#20087](https://github.com/prettier/prettier/pull/20087) by [@seiyab](https://github.com/seiyab))
+
+- …
+```markdown
+- …
+```
+
+# 3.9.7
+
+- …
+
+#### Markdown: Prevent indentation drift in list-item code blocks ([#19647](https://github.com/prettier/prettier/pull/19647), [#19990](https://github.com/prettier/prettier/pull/19990) by [@Austin1serb](https://github.com/Austin1serb), [@giaBaoJS](https://github.com/giaBaoJS))
+
+- …
+```markdown
+- …
+```
+
+#### JavaScript: Fix embedded template literal idempotency ([#19725](https://github.com/prettier/prettier/pull/19725) by [@fisker](https://github.com/fisker))
+
+- …
+```jsx
+- …
+```
+
+#### Markdown: Preserve Liquid blocks after Markdown tables ([#19730](https://github.com/prettier/prettier/pull/19730) by [@wanxiankai](https://github.com/wanxiankai), [@seiyab](https://github.com/seiyab))
+
+- …
+```markdown
+- …
+```
+
+#### Markdown: Preserve single tildes in Markdown ([#19739](https://github.com/prettier/prettier/pull/19739) by [@lazerg](https://github.com/lazerg))
+
+- …
+
+- …
+```markdown
+- …
+```
+
+#### Markdown: Fix Markdown blockquote containing `>` characters ([#19802](https://github.com/prettier/prettier/pull/19802) by [@seiyab](https://github.com/seiyab))
+
+- …
+```md
+- …
+```
+
+#### Markdown: Strip blockquote markers from a setext heading's continuation lines ([#19878](https://github.com/prettier/prettier/pull/19878) by [@Kjubikstronk](https://github.com/Kjubikstronk))
+
+- …
+
+- …
+```md
+- …
+```
+
+#### Markdown: Fix HTML block indentation drift in markdown list items ([#19987](https://github.com/prettier/prettier/pull/19987) by [@lazerg](https://github.com/lazerg))
+
+- …
+```markdown
+- …
+```
+
+#### Angular: Support `@boundary` error boundaries ([#20014](https://github.com/prettier/prettier/pull/20014) by [@Yahiro025](https://github.com/Yahiro025))
+
+- …
+```html
+- …
+```
 
 # 3.9.6
 
@@ -525,78 +600,3 @@ Excerpt of CHANGELOG.md from prettier/prettier at 8f0c95057cc91d5836409466cd9d9a
 
 #### Avoid line breaks in import attributes ([#16349](https://github.com/prettier/prettier/pull/16349) by [@fisker](https://github.com/fisker))
 
-- …
-```jsx
-- …
-```
-
-# 3.3.0
-
-- …
-
-- …
-
-# 3.2.5
-
-- …
-
-#### Support Angular inline styles as single template literal ([#15968](https://github.com/prettier/prettier/pull/15968) by [@sosukesuzuki](https://github.com/sosukesuzuki))
-
-- …
-
-- …
-```ts
-- …
-```
-
-#### Unexpected embedded formatting for Angular template ([#15969](https://github.com/prettier/prettier/pull/15969) by [@JounQin](https://github.com/JounQin))
-
-- …
-
-- …
-```ts
-- …
-```
-
-#### Use `"json"` parser for `tsconfig.json` by default ([#16012](https://github.com/prettier/prettier/pull/16012) by [@sosukesuzuki](https://github.com/sosukesuzuki))
-
-- …
-
-- …
-
-- …
-
-- …
-
-- …
-
-```json
-- …
-```
-
-- …
-```
-# Prettier 3.2.4
-- …
-# Prettier 3.2.5
-- …
-```
-
-# 3.2.4
-
-- …
-
-#### Fix incorrect parser inference ([#15947](https://github.com/prettier/prettier/pull/15947) by [@fisker](https://github.com/fisker))
-
-- …
-
-- …
-```jsx
-- …
-```
-
-# 3.2.3
-
-- …
-
-#### Throw errors for invalid code ([#15881](https://github.com/prettier/prettier/pull/15881) by [@fisker](https://github.com/fisker), [@Josh-Cena](https://github.com/Josh-Cena), [@auvred](https://github.com/auvred))

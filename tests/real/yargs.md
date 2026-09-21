@@ -1,6 +1,16 @@
-Excerpt of CHANGELOG.md from yargs/yargs at 8878a894111e3fe7c98d84af546c0f34fa017492, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from yargs/yargs at e49b60aa1ab2bfe061a9ecd5d61f4c5130fe3e14, cut by tests/real/fetch.sh
 
 # Changelog
+
+- …
+
+## [18.2.0](https://github.com/yargs/yargs/compare/v18.1.0...v18.2.0) (2026-09-20)
+
+### Features
+
+- …
+
+### Bug Fixes
 
 - …
 
@@ -590,13 +600,3 @@ Excerpt of CHANGELOG.md from yargs/yargs at 8878a894111e3fe7c98d84af546c0f34fa01
 
 - …
 
-### Features
-
-- …
-
-- …
-## [9.0.1](https://github.com/yargs/yargs/compare/v9.0.0...v9.0.1) (2017-09-17)
-
-### Bug Fixes
-
-- …
