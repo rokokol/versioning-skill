@@ -2,6 +2,12 @@
 
 Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), dated rather than numbered, and with no `Unreleased` section — this repository is read at whatever revision you have checked out, so whatever is on the default branch is what every reader already has. The rule is this skill's own, in [references/changelog.md](references/changelog.md)
 
+## 2026-09-23
+
+### Changed
+
+- `check-changelog.sh` braces every expansion that carries a base prefix, `10#${x}` rather than `10#$x`, because tree-sitter's bash grammar rejects the bare form. The five sites are the version comparison and the date it builds from a written month, and both answer what they answered before on every value the suite feeds them, leading zeros included. The file now parses as a tree here and, once the cascade lands, in every repository that vendors it
+
 ## 2026-09-22
 
 ### Added
