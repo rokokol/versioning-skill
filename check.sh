@@ -41,7 +41,7 @@ cd "$HERE"
 
 # One source of truth for what gets linted. A second copy of this list drifts, and a
 # drifted list lies about what was checked.
-scripts=(check.sh check-changelog.sh check-sh.sh check-skill.sh check-pins.sh vendor-sync.sh tests/real/fetch.sh)
+scripts=(check.sh check-changelog.sh check-sh.sh check-skill.sh check-pins.sh check-prose.sh vendor-sync.sh tests/real/fetch.sh)
 skill_name=versioning
 
 fail() {
@@ -102,60 +102,23 @@ check_lint() {
   # the pinned spellings, then scans the workflows
   ./check-pins.sh
 
-  echo "== no paragraph in the docs is hard-wrapped or ends on a full stop"
+  echo "== every document keeps the house rules a script can decide"
   # GitHub soft-wraps, so a manual break means a one-word edit reflows every line after it,
-  # and a paragraph ends bare. The rules' home is the create-readme skill, which cannot be
-  # assumed present in CI, so their machine-decidable part is spelled here — over every doc
-  # the skill ships, not the readme alone: SKILL.md and the references are what an agent reads
-  local docs=(README.md SKILL.md CHANGELOG.md references/*.md) doc wrapped stopped
-  for doc in "${docs[@]}"; do
-    wrapped=$(hard_wrapped "$doc")
-    [[ -z "$wrapped" ]] ||
-      fail "$doc hard-wraps a paragraph at line(s): $(tr '\n' ' ' <<<"$wrapped")— one paragraph is one line"
-    stopped=$(full_stopped "$doc")
-    [[ -z "$stopped" ]] ||
-      fail "$doc ends prose on a full stop at line(s): $(tr '\n' ' ' <<<"$stopped")— the last sentence ends bare"
-  done
-  # Both able to fail, on the shapes they claim: a wrapped paragraph and a wrapped list item,
-  # a full stop bare and one behind closing markup
-  printf 'one line of a paragraph\nand the next line of it\n\n- a list item\n  wrapped onto a second line\n' >"$work/wrapped.md"
-  [[ "$(hard_wrapped "$work/wrapped.md" | wc -l)" -eq 2 ]] ||
-    fail "the hard-wrap check missed a wrapped paragraph or a wrapped list item"
-  printf 'A sentence.\n\n**A bold one.**\n\n(A parenthesis.)\n' >"$work/stopped.md"
-  [[ "$(full_stopped "$work/stopped.md" | wc -l)" -eq 3 ]] ||
-    fail "the full-stop check missed a full stop, bare or behind markup"
+  # and a paragraph ends bare. Those rules and the rest of the house style live in the
+  # create-readme skill (https://github.com/rokokol/create-readme-skill), and its checker
+  # is vendored here rather than restated: the machine-decidable part used to be copied
+  # into this gate as awk, and the copies in five repositories had drifted into two
+  # spellings. Over every doc the skill ships, not the readme alone — SKILL.md and the
+  # references are what an agent reads. It proves each of its own rules able to fail on
+  # every run, so nothing here has to
+  local docs=(README.md SKILL.md CHANGELOG.md references/*.md)
+  ./check-prose.sh "${docs[@]}"
 
   echo "== SKILL.md loads, every reference is reachable, and every link and anchor resolves"
   # The one gate every skill repository shares, vendored from the skill-authoring skill
   # (https://github.com/rokokol/skill-authoring-skill). It proves each of its own checks
   # able to fail on every run, so nothing here has to
   ./check-skill.sh -n "$skill_name" .
-}
-
-hard_wrapped() { # hard_wrapped FILE -> the offending line numbers
-  awk '
-    # the frontmatter is YAML, whose keys sit one per line
-    NR == 1 && /^---$/ { front = 1; next }
-    front { if (/^---$/) front = 0; next }
-    /^```/ { fence = !fence; prev = 0; item = 0; next }
-    fence { next }
-    # a list item continued on an indented line is a wrapped list item
-    item && /^  +[^ ]/ && !/^  +([-*+]|[0-9]+\.) / { print NR; next }
-    /^[-*+] / || /^[0-9]+\. / { prev = 0; item = 1; next }
-    /^[[:space:]]*$/ || /^[#|>< ]/ || /^!\[/ || /^\[/ { prev = 0; item = 0; next }
-    { if (prev) print NR; prev = 1; item = 0 }
-  ' "$1"
-}
-
-full_stopped() { # full_stopped FILE -> the lines of prose that end on a full stop
-  awk '
-    NR == 1 && /^---$/ { front = 1; next }
-    front { if (/^---$/) front = 0; next }
-    /^```/ { fence = !fence; next }
-    fence || /^    / || /^[|]/ { next }
-    # seen through the markup that can close after it: `.**` and `.)` end on a stop too
-    { s = $0; sub(/[*_)`"]+$/, "", s); if (s ~ /[^.]\.$/) print NR }
-  ' "$1"
 }
 
 # One fixture per rule, and the message must be the rule's own: a checker whose findings

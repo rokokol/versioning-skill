@@ -8,3 +8,4 @@ check-pins.sh rokokol/ci-skill templates/check-pins.sh 65a870043a54563fe72302de5
 check-sh.sh rokokol/bash-best-practices-skill check-sh.sh 35c5ff47158e6520aba34fff2992a71e052da4c6 e3789ea4838d97747a4f8dd600ab0b4001000d03
 .github/workflows/macos.yml rokokol/bash-best-practices-skill templates/github/workflows/macos.yml 7a00a5e76ff757985a95e8fd2167209365148c6e aa7a3b768209f56c3afa78a4fb9d0ed560d4c678 manual
 check-skill.sh rokokol/skill-authoring-skill check-skill.sh 27bb4235a1337399b823e7112fd7f1560b0303cc 7b0c508e276df26bfc8768191229c81c63542083
+check-prose.sh rokokol/create-readme-skill check-prose.sh 02d01eda7c1b4a1574b678721c2eb9868ffce865 523335f24f07374089adafcc913e206b4d86e080

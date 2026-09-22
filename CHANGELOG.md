@@ -2,6 +2,12 @@
 
 Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), dated rather than numbered, and with no `Unreleased` section — this repository is read at whatever revision you have checked out, so whatever is on the default branch is what every reader already has. The rule is this skill's own, in [references/changelog.md](references/changelog.md)
 
+## 2026-09-22
+
+### Added
+
+- `check-prose.sh`, vendored from [create-readme](https://github.com/rokokol/create-readme-skill), replaces the two prose rules this gate carried as its own awk. Five repositories held that copy in two spellings that had drifted apart, and the vendored file decides more than they did: the admonition shape, a typographic quotation mark and a heading that duplicates a file
+
 ## 2026-09-18
 
 ### Fixed
