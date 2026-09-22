@@ -30,14 +30,21 @@ Where the checker and its tools can fool whoever maintains them is in [PITFALLS.
 
 ## Install
 
-```sh
-git clone https://github.com/rokokol/versioning-skill ~/Projects/versioning
-ln -s ~/Projects/versioning ~/.claude/skills/versioning
+```bash
+npx skills add -g rokokol/versioning-skill    # for you, everywhere
+npx skills add rokokol/versioning-skill       # for the project you are standing in
 ```
 
-Or straight into the skills directory your agent reads:
+Claude Code also takes it as a plugin:
 
-```sh
+```
+/plugin marketplace add rokokol/skills
+/plugin install versioning@rokokol-skills
+```
+
+or by hand — clone into whichever skills directory your agent reads:
+
+```bash
 git clone https://github.com/rokokol/versioning-skill ~/.claude/skills/versioning
 ```
 
