@@ -54,7 +54,14 @@ fail() {
 # ships, while `env bash` finds whichever bash is first on PATH — Homebrew's 5 on a Mac
 # that has one
 changelog() { "$BASH" "$HERE/check-changelog.sh" "$@"; }
-checker() { "$BASH" "$HERE/check-sh.sh" "$@"; }
+# --bash-only where CHECK_BASH32 says this is the macOS runner: check-sh.sh reads the
+# script it is given through shfmt and jq, and a macOS image carries neither. The flag
+# drops the tree-reading checks and keeps the rest, which is the half this proof is about
+checker() {
+  local tree_flag=()
+  [[ -z "${CHECK_BASH32:-}" ]] || tree_flag=(--bash-only)
+  "$BASH" "$HERE/check-sh.sh" ${tree_flag[@]+"${tree_flag[@]}"} "$@"
+}
 # The same copy under the same bash and tools proves itself once per run — the self-test is
 # 5 s of a 5.1 s call — so every call after the first runs the checks alone, which is what
 # CHECK_SH_NESTED=1 is documented for
@@ -353,7 +360,13 @@ check_behaviour() {
   # real_day and long_day are arithmetic of the checker's own, so they get an oracle where one
   # exists. Not on macOS, whose BSD date parses differently: there this block says so and the
   # Linux runner carries it
-  if TZ=UTC0 date -u -d 2024-02-29 +%F >/dev/null 2>&1; then
+  #
+  # The probe asks for the property the oracle needs, which is a refusal, and not merely for
+  # a -d that parses. busybox date takes -d, answers 2024-02-29 correctly, and then turns
+  # 2026-02-30 into 2026-03-02 rather than refusing it, so a -d probe alone runs the oracle
+  # against a date command that disagrees with it by design
+  if TZ=UTC0 date -u -d 2024-02-29 +%F >/dev/null 2>&1 &&
+    ! TZ=UTC0 date -u -d 2026-02-30 +%F >/dev/null 2>&1; then
     calendar_oracle
   else
     echo "   no GNU date here, so the calendar is not checked against one on this machine"
