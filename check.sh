@@ -54,12 +54,16 @@ fail() {
 # ships, while `env bash` finds whichever bash is first on PATH — Homebrew's 5 on a Mac
 # that has one
 changelog() { "$BASH" "$HERE/check-changelog.sh" "$@"; }
-# --bash-only where CHECK_BASH32 says this is the macOS runner: check-sh.sh reads the
-# script it is given through shfmt and jq, and a macOS image carries neither. The flag
-# drops the tree-reading checks and keeps the rest, which is the half this proof is about
+# Whether check-sh.sh can read a script as a tree here, which is the one thing --bash-only
+# is about. A macOS image carries neither shfmt nor jq, and neither does a job that runs
+# the behaviour half alone; the machine is not the question, the tools are
+tools_for_a_tree() { command -v shfmt >/dev/null 2>&1 && command -v jq >/dev/null 2>&1; }
+
+# The flag drops the tree-reading checks and keeps the rest, which is the half a runner
+# without the tools can still prove
 checker() {
   local tree_flag=()
-  [[ -z "${CHECK_BASH32:-}" ]] || tree_flag=(--bash-only)
+  tools_for_a_tree || tree_flag=(--bash-only)
   "$BASH" "$HERE/check-sh.sh" ${tree_flag[@]+"${tree_flag[@]}"} "$@"
 }
 # The same copy under the same bash and tools proves itself once per run — the self-test is
