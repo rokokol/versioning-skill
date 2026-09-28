@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Needs bash 3.2 and POSIX tools only, so it runs on a macOS runner unchanged. Taken from
+# Needs bash 3.2 and POSIX tools only, plus git, which --install asks for the repository's
+# own origin and does without. So it runs on a macOS runner unchanged. Taken from
 # https://github.com/rokokol/skill-authoring-skill through the vendoring cascade
 # (references/bump-cascade.md in https://github.com/rokokol/ci-skill): a copy is never
 # edited in place, a fix is made there. What it accepts is usage() below, and nowhere else
