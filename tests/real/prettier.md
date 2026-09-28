@@ -1,4 +1,15 @@
-Excerpt of CHANGELOG.md from prettier/prettier at 4f2ab6765d7cb29408a2abdac75d023d64d44107, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from prettier/prettier at cdd17f2288b28b170a76416c72dac56e3ea5daff, cut by tests/real/fetch.sh
+
+# 3.9.9
+
+- …
+
+#### Markdown: Fix text with `$` been incorrectly parsed as math syntax ([#20140](https://github.com/prettier/prettier/pull/20140) by [@fisker](https://github.com/fisker))
+
+- …
+```md
+- …
+```
 
 # 3.9.8
 
@@ -589,14 +600,3 @@ Excerpt of CHANGELOG.md from prettier/prettier at 4f2ab6765d7cb29408a2abdac75d02
 - …
 ```markdown
 - …
-```
-
-#### Preserve explicit language in front matter ([#16348](https://github.com/prettier/prettier/pull/16348) by [@fisker](https://github.com/fisker))
-
-- …
-```markdown
-- …
-```
-
-#### Avoid line breaks in import attributes ([#16349](https://github.com/prettier/prettier/pull/16349) by [@fisker](https://github.com/fisker))
-

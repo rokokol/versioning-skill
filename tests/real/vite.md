@@ -1,4 +1,17 @@
-Excerpt of packages/vite/CHANGELOG.md from vitejs/vite at 99bd9d1d46153fa939f4a304cc0177db42e28776, cut by tests/real/fetch.sh
+Excerpt of packages/vite/CHANGELOG.md from vitejs/vite at 39ddf7ccf7e7469ff6a3ba37bca38c32ea804d6e, cut by tests/real/fetch.sh
+
+## <small>[8.3.1](https://github.com/vitejs/vite/compare/v8.3.0...v8.3.1) (2026-09-24)</small>
+### Bug Fixes
+
+- …
+
+### Miscellaneous Chores
+
+- …
+
+### Code Refactoring
+
+- …
 
 ## [8.3.0](https://github.com/vitejs/vite/compare/v8.2.2...v8.3.0) (2026-09-10)
 
@@ -587,16 +600,3 @@ Excerpt of packages/vite/CHANGELOG.md from vitejs/vite at 99bd9d1d46153fa939f4a3
 ## <small>[7.2.6](https://github.com/vitejs/vite/compare/v7.2.5...v7.2.6) (2025-12-01)</small>
 ## <small>[7.2.5](https://github.com/vitejs/vite/compare/v7.2.4...v7.2.5) (2025-12-01)</small>
 ### Bug Fixes
-
-- …
-
-### Performance Improvements
-
-- …
-
-### Documentation
-
-- …
-
-### Miscellaneous Chores
-

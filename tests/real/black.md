@@ -1,4 +1,4 @@
-Excerpt of CHANGES.md from psf/black at 7adeae01474047c1de3b5dcfdc3c013457ef44ad, cut by tests/real/fetch.sh
+Excerpt of CHANGES.md from psf/black at 8d5a2d9f49378d7abe2eb632df1601818de8c24e, cut by tests/real/fetch.sh
 
 # Change Log
 
@@ -56,7 +56,11 @@ Excerpt of CHANGES.md from psf/black at 7adeae01474047c1de3b5dcfdc3c013457ef44ad
 
 - …
 
+- …
+
 ### Integrations
+
+- …
 
 - …
 
@@ -593,10 +597,6 @@ Excerpt of CHANGES.md from psf/black at 7adeae01474047c1de3b5dcfdc3c013457ef44ad
 - …
 
 ### Integrations
-
-- …
-
-## Version 23.9.1
 
 - …
 
