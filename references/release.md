@@ -8,7 +8,7 @@ A release is the moment the promise is made: from here on, someone can say "I ha
 2. **Move the changelog section and bump `VERSION` in the same commit.** The `Unreleased` bullets become `## [x.y.z] - YYYY-MM-DD`, dated the day of the release, and `VERSION` changes in that same diff. This is what makes the CI check meaningful: it can only pass when both moved together, so neither can be forgotten. Two commits would leave a revision where they disagree, and that revision is the one somebody bisects to
 3. **Verify on that commit**, not on the branch it came from: the full suite, the formatter, whatever gates a merge. Whatever is tagged is what people install
 4. **Tag it `v<x.y.z>` on that commit, and push the tag.** A tag that exists only locally is not a release anyone can fetch
-5. **Cut the release, and let its notes be that changelog section** — not a re-written summary. A hand-written summary beside a changelog section is a second source of truth, and within two releases they say different things
+5. **Cut the release, and let its notes be that changelog section** — not a re-written summary. A hand-written summary beside a changelog section is a second source of truth, and within two releases they say different things. A link in that section is absolute and pinned to the tag, `blob/v<x.y.z>/FILE`: the release page resolves a relative link under `/releases/tag/`, where it leads nowhere, and a link to the default branch drifts away from what the release shipped
 
 ```sh
 v=$(cat VERSION)

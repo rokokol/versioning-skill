@@ -2,6 +2,12 @@
 
 Kept in the shape of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), dated rather than numbered, and with no `Unreleased` section — this repository is read at whatever revision you have checked out, so whatever is on the default branch is what every reader already has. The rule is this skill's own, in [references/changelog.md](references/changelog.md)
 
+## 2026-10-03
+
+### Changed
+
+- a link in the changelog section that becomes the release notes is absolute and pinned to the tag: the release page resolves a relative link under `/releases/tag/`, where it leads nowhere, and a link to the default branch drifts away from what the release shipped
+
 ## 2026-09-23
 
 ### Changed
