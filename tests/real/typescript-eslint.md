@@ -1,4 +1,22 @@
-Excerpt of CHANGELOG.md from typescript-eslint/typescript-eslint at 23d38ceeb8fb1237f55cb62fc2b54419e1fa1ed7, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from typescript-eslint/typescript-eslint at 8695664c5ee3fbb8fd76907fc45e148579cc3162, cut by tests/real/fetch.sh
+
+## 8.71.0 (2026-09-28)
+
+### 🚀 Features
+
+- …
+
+### 🩹 Fixes
+
+- …
+
+### ❤️ Thank You
+
+- …
+
+- …
+
+- …
 
 ## 8.70.1 (2026-09-21)
 
@@ -581,22 +599,4 @@ Excerpt of CHANGELOG.md from typescript-eslint/typescript-eslint at 23d38ceeb8fb
 ## 8.48.0 (2025-11-24)
 
 ### 🚀 Features
-
-- …
-
-### 🩹 Fixes
-
-- …
-
-### ❤️ Thank You
-
-- …
-
-- …
-
-## 8.47.0 (2025-11-17)
-
-### 🚀 Features
-
-- …
 
