@@ -5,7 +5,7 @@
 vendor-sync.sh rokokol/ci-skill templates/vendor-sync.sh 0ef3c5fe157b249e70717f1535b3e9c2fc787a30 176a58470c142a98cb6434a889b3e98fea266ad3
 check-pins.sh rokokol/ci-skill templates/check-pins.sh 0ef3c5fe157b249e70717f1535b3e9c2fc787a30 c86f8288606d532f7982206eea8e8a310315d7f6
 .github/workflows/vendor-sync.yml rokokol/ci-skill templates/github/workflows/vendor-sync-macos.yml 1e036e65e3284369fdec3607f423edd4d006b7fc f7bb30b8eb3483cb13276df5237b37afc888c002 manual
-check-sh.sh rokokol/bash-best-practices-skill check-sh.sh d625a2d6d0472065c2e18377d4cefccf6141b082 f5cd917187c62224538ae8efdeb708f806be90f6
+check-sh.sh rokokol/bash-best-practices-skill check-sh.sh a4f5f26191417564d0ebe122bf652dd7e3f74b50 37cb4b54dc245288c711b9665c9b4aedc496b1ce
 .github/workflows/macos.yml rokokol/bash-best-practices-skill templates/github/workflows/macos.yml 7a00a5e76ff757985a95e8fd2167209365148c6e aa7a3b768209f56c3afa78a4fb9d0ed560d4c678 manual
-check-skill.sh rokokol/skill-authoring-skill check-skill.sh 4b5abb4c00ac030f6d8e3689f1ee2ed516b7e6b0 1e9b3cbe3e5733237de315943ceb72efd63375c6
+check-skill.sh rokokol/skill-authoring-skill check-skill.sh 017b508770a7e3c3d710946bcc209f15c9a1400f 83152392d798af1860d2b3fcf11438b4b8d0e4ff
 check-prose.sh rokokol/create-readme-skill check-prose.sh 68237ce51c5dca04fc2e2ef9df01ddcf1fdd4caa 3054ffa2de0990be2164494d734f34f17eda5e2b
