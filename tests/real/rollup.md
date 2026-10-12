@@ -1,6 +1,94 @@
-Excerpt of CHANGELOG.md from rollup/rollup at 3722484c33c58b3ab0cbbfcca09b8f267d420329, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from rollup/rollup at 05a293809848a3d772e7ff2ba44adcbd23bd84b8, cut by tests/real/fetch.sh
 
 # rollup changelog
+
+## 4.64.5
+
+- …
+
+### Bug Fixes
+
+- …
+
+### Pull Requests
+
+- …
+
+## 4.64.4
+
+- …
+
+### Bug Fixes
+
+- …
+
+### Pull Requests
+
+- …
+
+## 4.64.3
+
+- …
+
+### Bug Fixes
+
+- …
+
+### Pull Requests
+
+- …
+
+## 4.64.2
+
+- …
+
+### Bug Fixes
+
+- …
+
+### Pull Requests
+
+- …
+
+## 4.64.1
+
+- …
+
+### Bug Fixes
+
+- …
+
+### Pull Requests
+
+- …
+
+## 4.64.0
+
+- …
+
+### Features
+
+- …
+
+### Bug Fixes
+
+- …
+
+### Pull Requests
+
+- …
+
+## 4.63.6
+
+- …
+
+### Bug Fixes
+
+- …
+
+### Pull Requests
+
+- …
 
 ## 4.63.5
 
@@ -511,92 +599,4 @@ Excerpt of CHANGELOG.md from rollup/rollup at 3722484c33c58b3ab0cbbfcca09b8f267d
 - …
 
 ### Features
-
-- …
-
-### Pull Requests
-
-- …
-
-## 4.51.0
-
-- …
-
-### Features
-
-- …
-
-### Bug Fixes
-
-- …
-
-### Pull Requests
-
-- …
-
-## 4.50.2
-
-- …
-
-### Bug Fixes
-
-- …
-
-### Pull Requests
-
-- …
-
-## 4.50.1
-
-- …
-
-### Bug Fixes
-
-- …
-
-### Pull Requests
-
-- …
-
-## 4.50.0
-
-- …
-
-### Features
-
-- …
-
-### Bug Fixes
-
-- …
-
-### Pull Requests
-
-- …
-
-## 4.49.0
-
-- …
-
-### Features
-
-- …
-
-### Pull Requests
-
-- …
-
-## 4.48.1
-
-- …
-
-### Bug Fixes
-
-- …
-
-### Pull Requests
-
-- …
-
-## 4.48.0
 

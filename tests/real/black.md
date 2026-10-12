@@ -1,10 +1,8 @@
-Excerpt of CHANGES.md from psf/black at 8d5a2d9f49378d7abe2eb632df1601818de8c24e, cut by tests/real/fetch.sh
+Excerpt of CHANGES.md from psf/black at 11cff1312bf96e02bce9a467d0b5a2dd65300642, cut by tests/real/fetch.sh
 
 # Change Log
 
 ## Unreleased
-
-- …
 
 - …
 
@@ -13,8 +11,6 @@ Excerpt of CHANGES.md from psf/black at 8d5a2d9f49378d7abe2eb632df1601818de8c24e
 - …
 
 ### Stable style
-
-- …
 
 - …
 
@@ -34,8 +30,6 @@ Excerpt of CHANGES.md from psf/black at 8d5a2d9f49378d7abe2eb632df1601818de8c24e
 
 - …
 
-- …
-
 ### Parser
 
 - …
@@ -44,11 +38,7 @@ Excerpt of CHANGES.md from psf/black at 8d5a2d9f49378d7abe2eb632df1601818de8c24e
 
 - …
 
-- …
-
 ### Output
-
-- …
 
 - …
 
@@ -56,17 +46,87 @@ Excerpt of CHANGES.md from psf/black at 8d5a2d9f49378d7abe2eb632df1601818de8c24e
 
 - …
 
-- …
-
 ### Integrations
-
-- …
 
 - …
 
 ### Documentation
 
 - …
+
+## Version 26.10.1
+
+### Highlights
+
+- …
+
+- …
+
+### Stable style
+
+- …
+
+### Preview style
+
+- …
+
+### Configuration
+
+- …
+
+### Performance
+
+- …
+
+### Integrations
+
+- …
+
+## Version 26.10.0
+
+### Stable style
+
+- …
+
+### Preview style
+
+#### New preview features
+
+- …
+
+#### Updates to existing preview features
+
+- …
+
+#### Updates to existing unstable features
+
+- …
+
+### Configuration
+
+- …
+
+### Packaging
+
+- …
+
+### Performance
+
+- …
+
+### Output
+
+- …
+
+### _Blackd_
+
+- …
+
+### Integrations
+
+- …
+
+### Documentation
 
 - …
 
@@ -537,66 +597,6 @@ Excerpt of CHANGES.md from psf/black at 8d5a2d9f49378d7abe2eb632df1601818de8c24e
 - …
 
 ### Preview style
-
-- …
-
-### Configuration
-
-- …
-
-### Performance
-
-- …
-
-### Integrations
-
-- …
-
-## Version 23.10.1
-
-### Highlights
-
-- …
-
-### Preview style
-
-- …
-
-### Packaging
-
-- …
-
-### Integrations
-
-- …
-
-### Documentation
-
-- …
-
-## Version 23.10.0
-
-### Stable style
-
-- …
-
-### Preview style
-
-- …
-
-### Configuration
-
-- …
-
-### Parser
-
-- …
-
-### Output
-
-- …
-
-### Integrations
 
 - …
 

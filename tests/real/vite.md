@@ -1,4 +1,51 @@
-Excerpt of packages/vite/CHANGELOG.md from vitejs/vite at 39ddf7ccf7e7469ff6a3ba37bca38c32ea804d6e, cut by tests/real/fetch.sh
+Excerpt of packages/vite/CHANGELOG.md from vitejs/vite at b6c20f6a8126d8561891e5fb9368e8fc9da37538, cut by tests/real/fetch.sh
+
+## <small>[8.3.4](https://github.com/vitejs/vite/compare/v8.3.3...v8.3.4) (2026-10-08)</small>
+### Features
+
+- …
+
+### Bug Fixes
+
+- …
+
+### Performance Improvements
+
+- …
+
+### Code Refactoring
+
+- …
+
+## <small>[8.3.3](https://github.com/vitejs/vite/compare/v8.3.2...v8.3.3) (2026-10-06)</small>
+### Bug Fixes
+
+- …
+
+## <small>[8.3.2](https://github.com/vitejs/vite/compare/v8.3.1...v8.3.2) (2026-10-01)</small>
+### Bug Fixes
+
+- …
+
+### Performance Improvements
+
+- …
+
+### Documentation
+
+- …
+
+### Miscellaneous Chores
+
+- …
+
+### Code Refactoring
+
+- …
+
+### Tests
+
+- …
 
 ## <small>[8.3.1](https://github.com/vitejs/vite/compare/v8.3.0...v8.3.1) (2026-09-24)</small>
 ### Bug Fixes
@@ -553,50 +600,3 @@ Excerpt of packages/vite/CHANGELOG.md from vitejs/vite at 39ddf7ccf7e7469ff6a3ba
 #### [8.0.0-beta.6](https://github.com/vitejs/vite/compare/v8.0.0-beta.5...v8.0.0-beta.6) (2026-01-07)
 
 - …
-
-#### [8.0.0-beta.5](https://github.com/vitejs/vite/compare/v8.0.0-beta.4...v8.0.0-beta.5) (2025-12-25)
-
-- …
-
-#### [8.0.0-beta.4](https://github.com/vitejs/vite/compare/v8.0.0-beta.3...v8.0.0-beta.4) (2025-12-22)
-
-- …
-
-#### [8.0.0-beta.3](https://github.com/vitejs/vite/compare/v8.0.0-beta.2...v8.0.0-beta.3) (2025-12-18)
-
-- …
-
-#### [8.0.0-beta.2](https://github.com/vitejs/vite/compare/v8.0.0-beta.1...v8.0.0-beta.2) (2025-12-12)
-
-- …
-
-#### [8.0.0-beta.1](https://github.com/vitejs/vite/compare/v8.0.0-beta.0...v8.0.0-beta.1) (2025-12-08)
-
-- …
-
-#### [8.0.0-beta.0](https://github.com/vitejs/vite/compare/v7.2.4...v8.0.0-beta.0) (2025-12-03)
-
-- …
-
-### Rolldown-Vite changelogs
-
-- …
-
-## <small>[7.3.1](https://github.com/vitejs/vite/compare/v7.3.0...v7.3.1) (2026-01-07)</small>
-### Features
-
-- …
-
-## [7.3.0](https://github.com/vitejs/vite/compare/v7.2.7...v7.3.0) (2025-12-15)
-### Features
-
-- …
-
-## <small>[7.2.7](https://github.com/vitejs/vite/compare/v7.2.6...v7.2.7) (2025-12-08)</small>
-### Bug Fixes
-
-- …
-
-## <small>[7.2.6](https://github.com/vitejs/vite/compare/v7.2.5...v7.2.6) (2025-12-01)</small>
-## <small>[7.2.5](https://github.com/vitejs/vite/compare/v7.2.4...v7.2.5) (2025-12-01)</small>
-### Bug Fixes

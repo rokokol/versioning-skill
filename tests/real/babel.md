@@ -1,4 +1,4 @@
-Excerpt of CHANGELOG.md from babel/babel at 8ff435f2cab2399d96c428e8c9ee68fe1c6374d6, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from babel/babel at b23345e2a905edb19e35371ec64fcd1a0ea7c8a2, cut by tests/real/fetch.sh
 
 # Changelog
 
@@ -10,6 +10,13 @@ Excerpt of CHANGELOG.md from babel/babel at 8ff435f2cab2399d96c428e8c9ee68fe1c63
 
 - …
 
+- …
+## v8.0.7 (2026-10-07)
+
+#### :bug: Bug Fix
+- …
+
+#### :house: Internal
 - …
 ## v8.0.6 (2026-09-18)
 

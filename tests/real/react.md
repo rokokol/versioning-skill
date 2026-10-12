@@ -1,4 +1,4 @@
-Excerpt of CHANGELOG.md from facebook/react at a58f939795502a579c02d584600df5369d864c3b, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from facebook/react at e8738f0c628b4c321c5ce8077390ba48a8208341, cut by tests/real/fetch.sh
 
 ## 19.3.0 (September 9, 2026)
 

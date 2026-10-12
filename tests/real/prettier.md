@@ -1,4 +1,12 @@
-Excerpt of CHANGELOG.md from prettier/prettier at cdd17f2288b28b170a76416c72dac56e3ea5daff, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from prettier/prettier at 1172b82c295c4f889fd787dc6c78c3e194ebf353, cut by tests/real/fetch.sh
+
+# 3.9.10
+
+- …
+
+#### Markdown: Update `micromark-extension-gfm-table` to fix the table parse issue on performance ([#20266](https://github.com/prettier/prettier/pull/20266) by [@fisker](https://github.com/fisker))
+
+- …
 
 # 3.9.9
 
@@ -592,11 +600,3 @@ Excerpt of CHANGELOG.md from prettier/prettier at cdd17f2288b28b170a76416c72dac5
 ```
 
 # 3.3.1
-
-- …
-
-#### Preserve empty lines in front matter ([#16347](https://github.com/prettier/prettier/pull/16347) by [@fisker](https://github.com/fisker))
-
-- …
-```markdown
-- …

@@ -1,4 +1,16 @@
-Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at 75fef53d0a8590c2d1dbb63672aa7b7d1ef51155, cut by tests/real/fetch.sh
+Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at ec016089a9043568c975e8099a6e75728bdc29eb, cut by tests/real/fetch.sh
+
+# 1.53.2 (October 3rd, 2026)
+
+### Fixed
+
+- …
+
+### Fixed (unstable)
+
+- …
+
+- …
 
 # 1.53.1 (July 20th, 2026)
 
@@ -17,6 +29,8 @@ Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at 75fef53d0a8590c2d1dbb63672a
 - …
 
 # 1.53.0 (July 17th, 2026)
+
+- …
 
 ### Added
 
@@ -72,6 +86,8 @@ Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at 75fef53d0a8590c2d1dbb63672a
 
 # 1.52.0 (April 14th, 2026)
 
+- …
+
 ## Added
 
 - …
@@ -89,6 +105,18 @@ Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at 75fef53d0a8590c2d1dbb63672a
 - …
 
 ## Documented
+
+- …
+
+- …
+
+# 1.51.5 (October 3rd, 2026)
+
+### Fixed
+
+- …
+
+### Fixed (unstable)
 
 - …
 
@@ -194,6 +222,8 @@ Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at 75fef53d0a8590c2d1dbb63672a
 
 - …
 
+- …
+
 ### Added
 
 - …
@@ -258,6 +288,8 @@ Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at 75fef53d0a8590c2d1dbb63672a
 
 - …
 
+- …
+
 ## Added
 
 - …
@@ -283,6 +315,8 @@ Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at 75fef53d0a8590c2d1dbb63672a
 - …
 
 # 1.46.0 (July 2nd, 2025)
+
+- …
 
 ## Fixed
 
@@ -318,6 +352,8 @@ Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at 75fef53d0a8590c2d1dbb63672a
 
 # 1.45.0 (May 5th, 2025)
 
+- …
+
 ### Added
 
 - …
@@ -351,6 +387,8 @@ Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at 75fef53d0a8590c2d1dbb63672a
 - …
 
 # 1.44.0 (March 7th, 2025)
+
+- …
 
 - …
 
@@ -412,6 +450,8 @@ Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at 75fef53d0a8590c2d1dbb63672a
 
 # 1.43.0 (Jan 8th, 2025)
 
+- …
+
 ### Added
 
 - …
@@ -445,6 +485,8 @@ Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at 75fef53d0a8590c2d1dbb63672a
 - …
 
 # 1.42.0 (Dec 3rd, 2024)
+
+- …
 
 ### Added
 
@@ -498,6 +540,8 @@ Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at 75fef53d0a8590c2d1dbb63672a
 
 # 1.40.0 (August 30th, 2024)
 
+- …
+
 ### Added
 
 - …
@@ -540,6 +584,8 @@ Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at 75fef53d0a8590c2d1dbb63672a
 
 - …
 
+- …
+
 ### Added
 
 - …
@@ -553,50 +599,4 @@ Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at 75fef53d0a8590c2d1dbb63672a
 - …
 
 ### Added (unstable)
-
-- …
-
-### Documented
-
-- …
-
-- …
-
-# 1.38.2 (April 2nd, 2025)
-
-- …
-
-### Fixed
-
-- …
-
-- …
-
-# 1.38.1 (July 16th, 2024)
-
-- …
-
-### Fixed
-
-- …
-
-- …
-
-# 1.38.0 (May 30th, 2024)
-
-- …
-
-### Added
-
-- …
-
-### Changed
-
-- …
-
-### Fixed
-
-- …
-
-### Documented
 
