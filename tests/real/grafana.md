@@ -1,4 +1,4 @@
-Excerpt of CHANGELOG.md from grafana/grafana at 11a7f3debe80dc41ebbc63dfda73e38a8ce05b0a, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from grafana/grafana at 6eb1be0dabeefb2e86640380f8feb231b927fb1c, cut by tests/real/fetch.sh
 
 - …
 
@@ -151,8 +151,6 @@ Excerpt of CHANGELOG.md from grafana/grafana at 11a7f3debe80dc41ebbc63dfda73e38a
 ### Security
 
 - …
-
-# 13.0.10 (2026-09-29)
 
 - …
 
@@ -599,4 +597,6 @@ Excerpt of CHANGELOG.md from grafana/grafana at 11a7f3debe80dc41ebbc63dfda73e38a
 - …
 
 - …
+
+# 12.2.10 (2026-06-23)
 

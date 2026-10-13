@@ -1,6 +1,6 @@
 # Pitfalls
 
-Traps in the checker and the tools around it that report a plausible success or point at the wrong cause, each with the way to reproduce it and the safe way through. Stopgaps that wait on a fix elsewhere are in [WORKAROUNDS.md](WORKAROUNDS.md)
+Traps in the checker and the tools around it that report a plausible success or point at the wrong cause, each with the way to reproduce it and the safe way through
 
 ---
 

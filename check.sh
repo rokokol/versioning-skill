@@ -135,7 +135,7 @@ check_lint() {
   # spellings. Over every doc the skill ships, not the readme alone — SKILL.md and the
   # references are what an agent reads. It proves each of its own rules able to fail on
   # every run, so nothing here has to
-  local docs=(README.md SKILL.md CHANGELOG.md PITFALLS.md WORKAROUNDS.md references/*.md)
+  local docs=(README.md SKILL.md CHANGELOG.md PITFALLS.md references/*.md)
   ./check-prose.sh "${docs[@]}"
 
   echo "== SKILL.md loads, every reference is reachable, and every link and anchor resolves"

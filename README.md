@@ -17,7 +17,7 @@ A version is a promise: someone installed exactly this one, and can report a bug
 
 Both go wrong the same way, by claiming more than the repository can back: a version badge on something with no releases, an `Unreleased` section that never closes, an entry describing a refactor nobody outside could observe, a heading nobody can match to anything they installed. This skill is the set of rules that keep the claim true, plus a checker that decides the half a script can decide
 
-Where the checker and its tools can fool whoever maintains them is in [PITFALLS.md](PITFALLS.md), and the stopgaps that wait on a fix elsewhere are in [WORKAROUNDS.md](WORKAROUNDS.md)
+Where the checker and its tools can fool whoever maintains them is in [PITFALLS.md](PITFALLS.md)
 
 ## Contents
 
