@@ -24,4 +24,4 @@ curl -sL https://raw.githubusercontent.com/grafana/grafana/main/CHANGELOG.md | g
 
 Prints `# 13.0.10 (2026-09-29)` -> keep it. Prints nothing -> Grafana fixed the file: the next `corpus-sync` run goes red with `the real changelog grafana passed, where sources expects`, and the line goes back to `pass`
 
-**Upstream:** not reported yet
+**Upstream:** [grafana/grafana#134807](https://github.com/grafana/grafana/pull/134807), open
