@@ -12,7 +12,7 @@ vite                   vitejs/vite                          packages/vite/CHANGE
 typescript-eslint      typescript-eslint/typescript-eslint  CHANGELOG.md               d57b8da272375b6a45270639894a793933208a91  pass
 yargs                  yargs/yargs                          CHANGELOG.md               e49b60aa1ab2bfe061a9ecd5d61f4c5130fe3e14  pass
 angular                angular/angular                      CHANGELOG.md               12d0e4a4f2d55d9c1528b975a183d1a43d0b88df  pass
-grafana                grafana/grafana                      CHANGELOG.md               11a7f3debe80dc41ebbc63dfda73e38a8ce05b0a  pass
+grafana                grafana/grafana                      CHANGELOG.md               11a7f3debe80dc41ebbc63dfda73e38a8ce05b0a  fail [13.0.10] appears twice
 rollup                 rollup/rollup                        CHANGELOG.md               05a293809848a3d772e7ff2ba44adcbd23bd84b8  pass
 react                  facebook/react                       CHANGELOG.md               e8738f0c628b4c321c5ce8077390ba48a8208341  fail 'Deprecations' does not follow
 tokio                  tokio-rs/tokio                       tokio/CHANGELOG.md         ec016089a9043568c975e8099a6e75728bdc29eb  pass
