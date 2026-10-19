@@ -1,4 +1,4 @@
-Excerpt of CHANGELOG.md from tailwindlabs/tailwindcss at de2255ba3f3a9bbcfb2955711bcf8dece43db14e, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from tailwindlabs/tailwindcss at f7f47f8e98b0312784515605901dbb0c907d28bf, cut by tests/real/fetch.sh
 
 # Changelog
 

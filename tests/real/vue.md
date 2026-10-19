@@ -1,4 +1,10 @@
-Excerpt of CHANGELOG.md from vuejs/core at 5be58b4c475c1d14b4abacbfeda610394a0ee4e5, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from vuejs/core at bf5f0dd877dd3c23ce85c2cbc1dd771567e84c8c, cut by tests/real/fetch.sh
+
+## [3.5.44](https://github.com/vuejs/core/compare/v3.5.43...v3.5.44) (2026-10-13)
+
+### Bug Fixes
+
+- …
 
 ## [3.5.43](https://github.com/vuejs/core/compare/v3.5.42...v3.5.43) (2026-09-17)
 
