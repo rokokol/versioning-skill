@@ -5,21 +5,21 @@
 #
 # NAME                 REPOSITORY                           PATH                       COMMIT                                    EXPECT
 keep-a-changelog       olivierlacan/keep-a-changelog        CHANGELOG.md               06fff4ddc666a9751387e7e3bb02af17e03e41a0  pass
-tailwindcss            tailwindlabs/tailwindcss             CHANGELOG.md               f7f47f8e98b0312784515605901dbb0c907d28bf  pass
+tailwindcss            tailwindlabs/tailwindcss             CHANGELOG.md               8cc0551b1217d36dc565840b90920964d37cb46c  pass
 release-please         googleapis/release-please            CHANGELOG.md               05c6a4f71022304d4edad24ea90c1c16324503d5  pass
 vue                    vuejs/core                           CHANGELOG.md               bf5f0dd877dd3c23ce85c2cbc1dd771567e84c8c  pass
-vite                   vitejs/vite                          packages/vite/CHANGELOG.md b6c20f6a8126d8561891e5fb9368e8fc9da37538  pass
-typescript-eslint      typescript-eslint/typescript-eslint  CHANGELOG.md               7488d681f6e0e96c2aaa1eee9c3d1b9b1ef077cb  pass
+vite                   vitejs/vite                          packages/vite/CHANGELOG.md 981f07fa4580fb88b333c4450431e4715d2a0b82  pass
+typescript-eslint      typescript-eslint/typescript-eslint  CHANGELOG.md               a4c2603d3e4fd43b33bc25b82457716e9f7cef71  pass
 yargs                  yargs/yargs                          CHANGELOG.md               e49b60aa1ab2bfe061a9ecd5d61f4c5130fe3e14  pass
 angular                angular/angular                      CHANGELOG.md               92e5aa8f154096a756757d0e295cde4299788650  pass
 grafana                grafana/grafana                      CHANGELOG.md               d5a22cd9450652e9d5ae6f03da170b9fddf0bdb3  pass
-rollup                 rollup/rollup                        CHANGELOG.md               4ddbff578063396837db4e9901f77a70a6c526e6  pass
+rollup                 rollup/rollup                        CHANGELOG.md               7879c65994dd591d287b177b8d0b88d7d76c2a49  pass
 react                  facebook/react                       CHANGELOG.md               e8738f0c628b4c321c5ce8077390ba48a8208341  fail 'Deprecations' does not follow
-tokio                  tokio-rs/tokio                       tokio/CHANGELOG.md         9dd749d33408ffee1a4fd7c462546651416428a8  pass
-babel                  babel/babel                          CHANGELOG.md               b23345e2a905edb19e35371ec64fcd1a0ea7c8a2  pass
-bat                    sharkdp/bat                          CHANGELOG.md               d3afbaeb0671881cc88921fbb3bb921700c92fb4  pass
+tokio                  tokio-rs/tokio                       tokio/CHANGELOG.md         b53b2001ed2ccfd9b87e32a0c6da1a1eebdc80b8  pass
+babel                  babel/babel                          CHANGELOG.md               17cb59e303efbc20c42b9a1b20e242c581d1b8f6  pass
+bat                    sharkdp/bat                          CHANGELOG.md               f0a58595bd1ecb7c799dab16eeb5ff960dc2e7a9  pass
 esbuild                evanw/esbuild                        CHANGELOG.md               1e4d41bfb107ba55352e4129a9449e2ab9eb81b2  fail '2025' does not follow
-black                  psf/black                            CHANGES.md                 11cff1312bf96e02bce9a467d0b5a2dd65300642  pass
+black                  psf/black                            CHANGES.md                 05de7d12c78620b8cc8b0eafb463a8c767b8cc92  pass
 helix                  helix-editor/helix                   CHANGELOG.md               9f4ef2fc3db3da5551491b0311f7a8e77200b57a  fail '0.2.1' does not follow
 prettier               prettier/prettier                    CHANGELOG.md               1172b82c295c4f889fd787dc6c78c3e194ebf353  pass
 ripgrep                BurntSushi/ripgrep                   CHANGELOG.md               5e16a5c9e57e81f6031a23faa2ace52205fa8242  fail '0.4.0' does not follow

@@ -1,4 +1,40 @@
-Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at 9dd749d33408ffee1a4fd7c462546651416428a8, cut by tests/real/fetch.sh
+Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at b53b2001ed2ccfd9b87e32a0c6da1a1eebdc80b8, cut by tests/real/fetch.sh
+
+# 1.54.1 (October 21st, 2026)
+
+### Fixed
+
+- …
+
+- …
+
+# 1.54.0 (October 19th, 2026)
+
+- …
+
+- …
+
+### Added
+
+- …
+
+### Changed
+
+- …
+
+### Fixed
+
+- …
+
+### Unstable
+
+- …
+
+### Documented
+
+- …
+
+- …
 
 # 1.53.3 (October 13th, 2026)
 
@@ -561,42 +597,6 @@ Excerpt of tokio/CHANGELOG.md from tokio-rs/tokio at 9dd749d33408ffee1a4fd7c4625
 - …
 
 ### Changed
-
-- …
-
-### Fixed
-
-- …
-
-### Documented
-
-- …
-
-- …
-
-# 1.40.0 (August 30th, 2024)
-
-- …
-
-### Added
-
-- …
-
-### Added (unstable)
-
-- …
-
-### Changed
-
-- …
-
-### Documented
-
-- …
-
-- …
-
-# 1.39.3 (August 17th, 2024)
 
 - …
 

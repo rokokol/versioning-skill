@@ -1,4 +1,4 @@
-Excerpt of CHANGELOG.md from sharkdp/bat at d3afbaeb0671881cc88921fbb3bb921700c92fb4, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from sharkdp/bat at f0a58595bd1ecb7c799dab16eeb5ff960dc2e7a9, cut by tests/real/fetch.sh
 
 # unreleased
 

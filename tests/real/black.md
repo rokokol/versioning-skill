@@ -1,4 +1,4 @@
-Excerpt of CHANGES.md from psf/black at 11cff1312bf96e02bce9a467d0b5a2dd65300642, cut by tests/real/fetch.sh
+Excerpt of CHANGES.md from psf/black at 05de7d12c78620b8cc8b0eafb463a8c767b8cc92, cut by tests/real/fetch.sh
 
 # Change Log
 
@@ -11,6 +11,8 @@ Excerpt of CHANGES.md from psf/black at 11cff1312bf96e02bce9a467d0b5a2dd65300642
 - …
 
 ### Stable style
+
+- …
 
 - …
 
@@ -34,6 +36,8 @@ Excerpt of CHANGES.md from psf/black at 11cff1312bf96e02bce9a467d0b5a2dd65300642
 
 - …
 
+- …
+
 ### Performance
 
 - …
@@ -42,11 +46,17 @@ Excerpt of CHANGES.md from psf/black at 11cff1312bf96e02bce9a467d0b5a2dd65300642
 
 - …
 
+- …
+
 ### _Blackd_
 
 - …
 
+- …
+
 ### Integrations
+
+- …
 
 - …
 
@@ -589,14 +599,4 @@ Excerpt of CHANGES.md from psf/black at 11cff1312bf96e02bce9a467d0b5a2dd65300642
 ## Version 23.11.0
 
 ### Highlights
-
-- …
-
-### Stable style
-
-- …
-
-### Preview style
-
-- …
 
