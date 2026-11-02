@@ -1,4 +1,44 @@
-Excerpt of CHANGELOG.md from grafana/grafana at d5a22cd9450652e9d5ae6f03da170b9fddf0bdb3, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from grafana/grafana at e1e2026380196be83bc5d7185fb470c4ee12d0be, cut by tests/real/fetch.sh
+
+- …
+
+# 13.3.0 (2026-10-27)
+
+### Security
+
+- …
+
+### Features and enhancements
+
+- …
+
+### Bug fixes
+
+- …
+
+### Breaking changes
+
+- …
+
+### Plugin development fixes & changes
+
+- …
+
+- …
+
+# 13.2.5 (2026-10-27)
+
+### Security
+
+- …
+
+### Features and enhancements
+
+- …
+
+### Bug fixes
+
+- …
 
 - …
 
@@ -69,6 +109,18 @@ Excerpt of CHANGELOG.md from grafana/grafana at d5a22cd9450652e9d5ae6f03da170b9f
 - …
 
 ### Plugin development fixes & changes
+
+- …
+
+- …
+
+# 13.1.9 (2026-10-27)
+
+### Security
+
+- …
+
+### Features and enhancements
 
 - …
 
@@ -173,6 +225,18 @@ Excerpt of CHANGELOG.md from grafana/grafana at d5a22cd9450652e9d5ae6f03da170b9f
 - …
 
 ### Plugin development fixes & changes
+
+- …
+
+- …
+
+# 13.0.12 (2026-10-27)
+
+### Security
+
+- …
+
+### Features and enhancements
 
 - …
 
@@ -317,6 +381,14 @@ Excerpt of CHANGELOG.md from grafana/grafana at d5a22cd9450652e9d5ae6f03da170b9f
 - …
 
 ### Plugin development fixes & changes
+
+- …
+
+- …
+
+# 12.4.14 (2026-10-27)
+
+### Security
 
 - …
 
@@ -527,76 +599,4 @@ Excerpt of CHANGELOG.md from grafana/grafana at d5a22cd9450652e9d5ae6f03da170b9f
 - …
 
 # 12.3.8 (2026-06-23)
-
-### Features and enhancements
-
-- …
-
-### Bug fixes
-
-- …
-
-- …
-
-# 12.3.7 (2026-06-09)
-
-### Features and enhancements
-
-- …
-
-- …
-
-# 12.3.6+security-04 (2026-05-12)
-
-### Bug fixes
-
-- …
-
-- …
-
-# 12.3.6+security-01 (2026-03-25)
-
-### Bug fixes
-
-- …
-
-- …
-
-# 12.3.6 (2026-03-25)
-
-### Features and enhancements
-
-- …
-
-### Bug fixes
-
-- …
-
-- …
-
-# 12.3.5 (2026-03-09)
-
-### Features and enhancements
-
-- …
-
-### Bug fixes
-
-- …
-
-- …
-
-# 12.3.4 (2026-02-24)
-
-### Bug fixes
-
-- …
-
-- …
-
-# 12.3.3 (2026-02-12)
-
-### Features and enhancements
-
-- …
 

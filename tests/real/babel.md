@@ -1,4 +1,4 @@
-Excerpt of CHANGELOG.md from babel/babel at 17cb59e303efbc20c42b9a1b20e242c581d1b8f6, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from babel/babel at d6d99e13a00dbddfafaa75fdb9ea57039baaac33, cut by tests/real/fetch.sh
 
 # Changelog
 
@@ -10,6 +10,30 @@ Excerpt of CHANGELOG.md from babel/babel at 17cb59e303efbc20c42b9a1b20e242c581d1
 
 - …
 
+- …
+## v8.1.0 (2026-11-02)
+
+#### :rocket: New Feature
+- …
+
+#### :bug: Bug Fix
+- …
+
+#### :microscope: Output optimization
+- …
+
+## v8.0.10 (2026-10-29)
+
+#### :bug: Bug Fix
+- …
+
+#### :house: Internal
+- …
+
+#### :running_woman: Performance
+- …
+
+#### :microscope: Output optimization
 - …
 ## v8.0.8 (2026-10-23)
 
