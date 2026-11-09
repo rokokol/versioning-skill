@@ -1,4 +1,4 @@
-Excerpt of CHANGES.md from psf/black at 945d902bef347d2e7e1d26897aa89a9c177fb535, cut by tests/real/fetch.sh
+Excerpt of CHANGES.md from psf/black at 81687b58f7486b29c255055d1205b582dba8e49c, cut by tests/real/fetch.sh
 
 # Change Log
 

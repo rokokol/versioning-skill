@@ -1,4 +1,4 @@
-Excerpt of CHANGELOG.md from tailwindlabs/tailwindcss at 78dfd411f67af2102516e86dcc69fd675619bbec, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from tailwindlabs/tailwindcss at 9b2c925c19aae46ff4f9cf54a2fa6d2dbac7fa19, cut by tests/real/fetch.sh
 
 # Changelog
 
@@ -7,6 +7,16 @@ Excerpt of CHANGELOG.md from tailwindlabs/tailwindcss at 78dfd411f67af2102516e86
 - …
 
 ## [Unreleased]
+
+- …
+
+## [4.3.5] - 2026-11-06
+
+### Fixed
+
+- …
+
+## [4.3.4] - 2026-11-02
 
 ### Added
 
@@ -589,14 +599,4 @@ Excerpt of CHANGELOG.md from tailwindlabs/tailwindcss at 78dfd411f67af2102516e86
 - …
 
 ### Fixed
-
-- …
-
-### Changed
-
-- …
-
-## [4.0.0-alpha.29] - 2024-10-23
-
-### Added
 
