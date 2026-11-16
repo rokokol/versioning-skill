@@ -1,4 +1,26 @@
-Excerpt of CHANGELOG.md from prettier/prettier at 1172b82c295c4f889fd787dc6c78c3e194ebf353, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from prettier/prettier at deda65fd47c285b974e2a4397f26a33cfc1746b8, cut by tests/real/fetch.sh
+
+# 3.10.1
+
+- …
+
+#### GraphQL: Fix empty selection set with comments ([#20504](https://github.com/prettier/prettier/pull/20504) by [@fisker](https://github.com/fisker))
+
+- …
+```gql
+# Input
+- …
+# Prettier 3.10.0
+- …
+# Prettier 3.10.1
+- …
+```
+
+# 3.10.0
+
+- …
+
+- …
 
 # 3.9.10
 
@@ -578,25 +600,3 @@ Excerpt of CHANGELOG.md from prettier/prettier at 1172b82c295c4f889fd787dc6c78c3
 - …
 
 - …
-
-- …
-```html
-- …
-```
-
-- …
-
-- …
-
-# 3.3.2
-
-- …
-
-#### Fix handlebars path expressions starts with `@` ([#16358](https://github.com/prettier/prettier/pull/16358) by [@Princeyadav05](https://github.com/Princeyadav05))
-
-- …
-```hbs
-- …
-```
-
-# 3.3.1

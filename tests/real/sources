@@ -5,22 +5,22 @@
 #
 # NAME                 REPOSITORY                           PATH                       COMMIT                                    EXPECT
 keep-a-changelog       olivierlacan/keep-a-changelog        CHANGELOG.md               06fff4ddc666a9751387e7e3bb02af17e03e41a0  pass
-tailwindcss            tailwindlabs/tailwindcss             CHANGELOG.md               9b2c925c19aae46ff4f9cf54a2fa6d2dbac7fa19  pass
+tailwindcss            tailwindlabs/tailwindcss             CHANGELOG.md               b08bf83a327271dfb7e3cd485fd793da15013f7c  pass
 release-please         googleapis/release-please            CHANGELOG.md               05c6a4f71022304d4edad24ea90c1c16324503d5  pass
 vue                    vuejs/core                           CHANGELOG.md               8b479a89445868d474f17e2d837765e7c9ece5e4  pass
-vite                   vitejs/vite                          packages/vite/CHANGELOG.md 5def936009d2637a48d056e197aebc6242ac27c6  pass
-typescript-eslint      typescript-eslint/typescript-eslint  CHANGELOG.md               4ad6b7553781fa3c93fc26642d7219d2e6624504  pass
+vite                   vitejs/vite                          packages/vite/CHANGELOG.md 9a8d1a98922c5e445e8a618b8c27f84c63b9fbff  pass
+typescript-eslint      typescript-eslint/typescript-eslint  CHANGELOG.md               12e452f0292212bf9bf443b3988ec230f4ae7097  pass
 yargs                  yargs/yargs                          CHANGELOG.md               e49b60aa1ab2bfe061a9ecd5d61f4c5130fe3e14  pass
-angular                angular/angular                      CHANGELOG.md               26f22e5423a062edc89c0675372f54a1cfc1262b  pass
-grafana                grafana/grafana                      CHANGELOG.md               e1e2026380196be83bc5d7185fb470c4ee12d0be  pass
-rollup                 rollup/rollup                        CHANGELOG.md               d1728b6a134c3a70f53a6961b20b19d4a148d236  pass
+angular                angular/angular                      CHANGELOG.md               008fd5bb122c6858262b485b47cb98b4dd740f68  pass
+grafana                grafana/grafana                      CHANGELOG.md               4004c63da969065d2eaba4cded553336486fc926  pass
+rollup                 rollup/rollup                        CHANGELOG.md               9b2de5068e925a3b07bea67c972de21a347af9d9  pass
 react                  facebook/react                       CHANGELOG.md               e8738f0c628b4c321c5ce8077390ba48a8208341  fail 'Deprecations' does not follow
 tokio                  tokio-rs/tokio                       tokio/CHANGELOG.md         b53b2001ed2ccfd9b87e32a0c6da1a1eebdc80b8  pass
-babel                  babel/babel                          CHANGELOG.md               d6d99e13a00dbddfafaa75fdb9ea57039baaac33  pass
-bat                    sharkdp/bat                          CHANGELOG.md               5dd9196bef7b39c471c69f66655ef9048a0c098a  pass
+babel                  babel/babel                          CHANGELOG.md               36ef295c27ab0a8a4c6b49356bd40b71c148013e  pass
+bat                    sharkdp/bat                          CHANGELOG.md               87837d34d674d57281d4f0da552baff68a9b48ce  pass
 esbuild                evanw/esbuild                        CHANGELOG.md               1e4d41bfb107ba55352e4129a9449e2ab9eb81b2  fail '2025' does not follow
-black                  psf/black                            CHANGES.md                 81687b58f7486b29c255055d1205b582dba8e49c  pass
+black                  psf/black                            CHANGES.md                 b10cbe43b8169e688ab86989ddcc8ad2a53ff2cd  pass
 helix                  helix-editor/helix                   CHANGELOG.md               9f4ef2fc3db3da5551491b0311f7a8e77200b57a  fail '0.2.1' does not follow
-prettier               prettier/prettier                    CHANGELOG.md               1172b82c295c4f889fd787dc6c78c3e194ebf353  pass
+prettier               prettier/prettier                    CHANGELOG.md               deda65fd47c285b974e2a4397f26a33cfc1746b8  pass
 ripgrep                BurntSushi/ripgrep                   CHANGELOG.md               5e16a5c9e57e81f6031a23faa2ace52205fa8242  fail '0.4.0' does not follow
 jq                     jqlang/jq                            NEWS.md                    88e83408f23cb9d8357fa279724e6014b39becb5  fail 'Previous releases' does not follow

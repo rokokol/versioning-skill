@@ -1,4 +1,4 @@
-Excerpt of CHANGES.md from psf/black at 81687b58f7486b29c255055d1205b582dba8e49c, cut by tests/real/fetch.sh
+Excerpt of CHANGES.md from psf/black at b10cbe43b8169e688ab86989ddcc8ad2a53ff2cd, cut by tests/real/fetch.sh
 
 # Change Log
 
@@ -30,6 +30,8 @@ Excerpt of CHANGES.md from psf/black at 81687b58f7486b29c255055d1205b582dba8e49c
 
 - …
 
+- …
+
 ### Packaging
 
 - …
@@ -41,6 +43,8 @@ Excerpt of CHANGES.md from psf/black at 81687b58f7486b29c255055d1205b582dba8e49c
 - …
 
 ### Performance
+
+- …
 
 - …
 
@@ -595,8 +599,4 @@ Excerpt of CHANGES.md from psf/black at 81687b58f7486b29c255055d1205b582dba8e49c
 - …
 
 ### Packaging
-
-- …
-
-### Integrations
 

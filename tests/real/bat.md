@@ -1,4 +1,4 @@
-Excerpt of CHANGELOG.md from sharkdp/bat at 5dd9196bef7b39c471c69f66655ef9048a0c098a, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from sharkdp/bat at 87837d34d674d57281d4f0da552baff68a9b48ce, cut by tests/real/fetch.sh
 
 # unreleased
 
@@ -11,6 +11,7 @@ Excerpt of CHANGELOG.md from sharkdp/bat at 5dd9196bef7b39c471c69f66655ef9048a0c
 - …
 
 ## Bugfixes
+
 - …
 
 ## Other
@@ -599,4 +600,3 @@ Excerpt of CHANGELOG.md from sharkdp/bat at 5dd9196bef7b39c471c69f66655ef9048a0c
 - …
 
 ## Changes
-

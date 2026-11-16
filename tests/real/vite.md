@@ -1,4 +1,50 @@
-Excerpt of packages/vite/CHANGELOG.md from vitejs/vite at 5def936009d2637a48d056e197aebc6242ac27c6, cut by tests/real/fetch.sh
+Excerpt of packages/vite/CHANGELOG.md from vitejs/vite at 9a8d1a98922c5e445e8a618b8c27f84c63b9fbff, cut by tests/real/fetch.sh
+
+## [8.4.0-beta.1](https://github.com/vitejs/vite/compare/v8.3.8...v8.4.0-beta.1) (2026-11-16)
+### Features
+
+- …
+
+### Bug Fixes
+
+- …
+
+### Performance Improvements
+
+- …
+
+### Miscellaneous Chores
+
+- …
+
+### Code Refactoring
+
+- …
+
+### Build System
+
+- …
+
+## <small>[8.3.8](https://github.com/vitejs/vite/compare/v8.3.7...v8.3.8) (2026-11-11)</small>
+### Bug Fixes
+
+- …
+
+### Performance Improvements
+
+- …
+
+### Miscellaneous Chores
+
+- …
+
+### Code Refactoring
+
+- …
+
+### Tests
+
+- …
 
 ## <small>[8.3.7](https://github.com/vitejs/vite/compare/v8.3.6...v8.3.7) (2026-11-09)</small>
 ### Bug Fixes
@@ -553,50 +599,4 @@ Excerpt of packages/vite/CHANGELOG.md from vitejs/vite at 5def936009d2637a48d056
 ### Bug Fixes
 
 - …
-
-### Miscellaneous Chores
-
-- …
-
-## [8.0.0](https://github.com/vitejs/vite/compare/v8.0.0-beta.18...v8.0.0) (2026-03-12)
-
-- …
-
-- …
-
-- …
-
-### ⚠ BREAKING CHANGES
-
-- …
-
-### Features
-
-- …
-
-### Bug Fixes
-
-- …
-
-### Performance Improvements
-
-- …
-
-### Documentation
-
-- …
-
-### Miscellaneous Chores
-
-- …
-
-### Code Refactoring
-
-- …
-
-### Tests
-
-- …
-
-### Beta Changelogs
 
