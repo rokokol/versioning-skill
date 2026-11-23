@@ -1,4 +1,4 @@
-Excerpt of CHANGES.md from psf/black at b10cbe43b8169e688ab86989ddcc8ad2a53ff2cd, cut by tests/real/fetch.sh
+Excerpt of CHANGES.md from psf/black at 3aa7c1f7b953b7d7ff0ce86c1650b0ff5e4d7d2b, cut by tests/real/fetch.sh
 
 # Change Log
 
@@ -13,6 +13,8 @@ Excerpt of CHANGES.md from psf/black at b10cbe43b8169e688ab86989ddcc8ad2a53ff2cd
 - …
 
 ### Stable style
+
+- …
 
 - …
 
@@ -597,6 +599,4 @@ Excerpt of CHANGES.md from psf/black at b10cbe43b8169e688ab86989ddcc8ad2a53ff2cd
 ### Configuration
 
 - …
-
-### Packaging
 

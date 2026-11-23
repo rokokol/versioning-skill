@@ -1,4 +1,4 @@
-Excerpt of CHANGELOG.md from babel/babel at 36ef295c27ab0a8a4c6b49356bd40b71c148013e, cut by tests/real/fetch.sh
+Excerpt of CHANGELOG.md from babel/babel at ac85707dd95943aa84f43b078929d324d3f768c3, cut by tests/real/fetch.sh
 
 # Changelog
 
@@ -10,6 +10,16 @@ Excerpt of CHANGELOG.md from babel/babel at 36ef295c27ab0a8a4c6b49356bd40b71c148
 
 - …
 
+- …
+## v8.1.3 (2026-11-20)
+
+#### :eyeglasses: Spec Compliance
+- …
+
+#### :bug: Bug Fix
+- …
+
+#### :house: Internal
 - …
 ## v8.1.2 (2026-11-11)
 
